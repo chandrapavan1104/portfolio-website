@@ -1,76 +1,96 @@
 <h2 align="center">
-  Portfolio Website - v2.0<br/>
-  <a href="https://soumyajit.vercel.app/" target="_blank">soumyajit.tech</a>
+  Portfolio Website - Vite Edition
 </h2>
 <div align="center">
-  <img alt="Demo" src="./Images/readme-img1.png" />
+  <img alt="Portfolio preview" src="./Images/readme-img1.png" />
 </div>
 
-<br/>
+<br />
 
-<center>
+## Overview
 
-[![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com) &nbsp;
-[![forthebadge](https://forthebadge.com/images/badges/made-with-javascript.svg)](https://forthebadge.com) &nbsp;
-[![forthebadge](https://forthebadge.com/images/badges/open-source.svg)](https://forthebadge.com) &nbsp;
-![GitHub Repo stars](https://img.shields.io/github/stars/soumyajit4419/Portfolio?color=red&logo=github&style=for-the-badge) &nbsp;
-![GitHub forks](https://img.shields.io/github/forks/soumyajit4419/Portfolio?color=red&logo=github&style=for-the-badge)
+This repository contains my personal portfolio site built with React, Vite, and React-Bootstrap. It showcases my experience, skills, projects, resume, and includes an AI chatbot that answers questions about me.
 
-</center>
+Forking and customizing the site is intentionally simple: **update a single data file (`src/Portfolio.js`) with your information, rebuild, and deploy.**
 
-<h3 align="center">
-    🔹
-    <a href="https://github.com/soumyajit4419/Portfolio/issues">Report Bug</a> &nbsp; &nbsp;
-    🔹
-    <a href="https://github.com/soumyajit4419/Portfolio/issues">Request Feature</a>
-</h3>
+## Tech Stack
 
-## TL;DR
+- React 18 + Vite
+- React-Bootstrap & custom CSS
+- React Router
+- Hosted chatbot endpoint ([Profile Bot](https://github.com/chandrapavan1104/Profile_bot))
 
-You can fork this repo to modify and make changes of your own. Please give me proper credit by linking back to [Soumyajit4419](https://github.com/soumyajit4419/Portfolio). Thanks!
+## Quick Start
 
-## Built With
+```bash
+# clone your fork
+git clone https://github.com/<your-user>/portfolio-website.git
+cd portfolio-website
 
-My personal portfolio <a href="https://soumyajit.vercel.app/" target="_blank">soumyajit.tech</a> which features some of my github projects as well as my resume and technical skills.<br/>
+# install dependencies
+npm install
 
-This project was built using these technologies.
+# copy environment template and update the API endpoint if needed
+cp .env.example .env
 
-- React.js
-- Node.js
-- Express.js
-- CSS3
-- VsCode
-- Vercel
+# start the dev server
+npm run dev   # http://localhost:5173
+```
 
-## Features
+To create a production build:
 
-**📖 Multi-Page Layout**
+```bash
+npm run build
+npm run preview    # optional: serve the production build locally
+```
 
-**🎨 Styled with React-Bootstrap and Css with easy to customize colors**
+## Personalize in Minutes
 
-**📱 Fully Responsive**
+All portfolio content (name, subtitle, social links, skills, education, experience, projects, contact info) lives in **`src/Portfolio.js`**. Replace the sample values with your own:
 
-## Getting Started
+```js
+const portfolio = {
+  name: "Your Name",
+  title: "Role | Specialization",
+  subTitle: "Short punchy intro...",
+  // ...
+  projects: [
+    {
+      name: "Project Title",
+      techStack: ["React", "Node", "PostgreSQL"],
+      description: "Project summary...",
+      github: "https://github.com/you/project",
+      demo: "https://your-demo-link.com"
+    },
+  ],
+  // ...
+};
+```
 
-Clone down this repository. You will need `node.js` and `git` installed globally on your machine.
+Once you save the file, the site hot-reloads with your content. No additional configuration needed.
 
-## 🛠 Installation and Setup Instructions
+## Chatbot Integration
 
-1. Installation: `npm install`
+The chatbot section sends user questions to my hosted Profile Bot API (`https://profile-bot-api-977721269659.us-west2.run.app/ask`). If you want to run your own assistant or extend its knowledge base, follow the setup guide in the companion repo: **[chandrapavan1104/Profile_bot](https://github.com/chandrapavan1104/Profile_bot)**.
 
-2. In the project directory, you can run: `npm start`
+### Using your own bot
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-The page will reload if you make edits.
+1. Deploy the Profile Bot backend (instructions in the linked repo).
+2. Update `VITE_CHATBOT_API_URL` inside your local `.env` file to point to your deployment.
+3. Optionally adjust the welcome message or fallback copy in `src/components/Chatbot/Chatbot.jsx`.
 
-## Usage Instructions
+## Deploy
 
-Open the project folder and Navigate to `/src/components/`. <br/>
-You will find all the components used and you can edit your information accordingly.
+You can deploy the generated `dist/` output to any static hosting provider (Vercel, Netlify, GitHub Pages, Cloudflare Pages, etc.). For Vercel:
 
-### Show your support
+1. Push your repository to GitHub.
+2. Import the project in Vercel and choose the `npm run build` command.
+3. Set the framework preset to “Vite” (Vercel detects it automatically).
 
-Give a ⭐ if you like this website!
+## Contributing / Forking
 
-<a href="https://www.buymeacoffee.com/soumyajit4419" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-violet.png" alt="Buy Me A Coffee" height= "60px" width= "217px" ></a>
+Feel free to fork this repo, customize it, and share your version. Credit is appreciated but not required. If you spot a bug or have an improvement in mind, open an issue or pull request.
+
+## Support
+
+If this template helps you launch your own portfolio, drop a ⭐️ on the repo or share it with friends. Happy building!

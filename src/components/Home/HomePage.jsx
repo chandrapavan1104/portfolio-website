@@ -2,7 +2,6 @@ import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import homeLogo from "../../Assets/home-main.svg";
 import Particle from "../Particle";
-import Home2 from "./Home2";
 import Type from "./Type";
 import {
   AiFillGithub,
@@ -10,9 +9,11 @@ import {
   AiFillInstagram,
 } from "react-icons/ai";
 import { FaLinkedinIn } from "react-icons/fa";
+import Tilt from "react-parallax-tilt";
+import myImg from "../../Assets/avatar.svg";
 import portfolio from "../../Portfolio";
 
-function Home() {
+function HomePage() {
   const socialLinks = portfolio.socialLinks || {};
   const SOCIAL_ICONS = {
     github: <AiFillGithub />,
@@ -20,6 +21,11 @@ function Home() {
     instagram: <AiFillInstagram />,
     linkedin: <FaLinkedinIn />,
   };
+  const coreStacksList = [
+    ...(portfolio.skills?.languages || []),
+    ...(portfolio.skills?.frontend || []),
+    ...(portfolio.skills?.backend || []),
+  ].slice(0, 6);
 
   return (
     <section>
@@ -59,7 +65,34 @@ function Home() {
           </Row>
         </Container>
       </Container>
-      <Home2 />
+      <Container fluid className="home-about-section" id="about">
+        <Container>
+          <Row>
+            <Col md={8} className="home-about-description">
+              <h1 style={{ fontSize: "2.6em" }}>
+                LET ME <span className="purple"> INTRODUCE </span> MYSELF
+              </h1>
+              <p className="home-about-body">
+                {portfolio.about}
+                {coreStacksList.length > 0 && (
+                  <>
+                    <br />
+                    <br />
+                    <i>
+                      <b className="purple">{coreStacksList.join(", ")}</b>
+                    </i>
+                  </>
+                )}
+              </p>
+            </Col>
+            <Col md={4} className="myAvtar">
+              <Tilt>
+                <img src={myImg} className="img-fluid" alt="avatar" />
+              </Tilt>
+            </Col>
+          </Row>
+        </Container>
+      </Container>
 
       <Container>
         <Row style={{ paddingTop: "50px", paddingBottom: "80px" }}>
@@ -91,4 +124,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default HomePage;

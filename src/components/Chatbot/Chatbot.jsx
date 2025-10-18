@@ -2,10 +2,10 @@ import React, { useState, useRef, useEffect } from "react";
 import { Container, Row, Col, Form, Button, Spinner } from "react-bootstrap";
 import portfolio from "../../Portfolio";
 
-const API_URL =
-  "https://profile-bot-api-977721269659.us-west2.run.app/ask";
-
 function Chatbot() {
+  const apiUrl =
+    import.meta.env.VITE_CHATBOT_API_URL ||
+    "https://profile-bot-api-977721269659.us-west2.run.app/ask";
   const [messages, setMessages] = useState([
     {
       role: "assistant",
@@ -34,7 +34,7 @@ function Chatbot() {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch(API_URL, {
+      const response = await fetch(apiUrl, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
