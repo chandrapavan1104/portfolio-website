@@ -6,15 +6,16 @@ import logo from "../Assets/logo.png";
 import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
 import { CgGitFork } from "react-icons/cg";
-import { ImBlog } from "react-icons/im";
 import {
   AiFillStar,
   AiOutlineHome,
   AiOutlineFundProjectionScreen,
   AiOutlineUser,
+  AiOutlineRobot,
 } from "react-icons/ai";
 
 import { CgFileDocument } from "react-icons/cg";
+import portfolio from "../Portfolio";
 
 function NavBar() {
   const [expand, updateExpanded] = useState(false);
@@ -94,24 +95,27 @@ function NavBar() {
 
             <Nav.Item>
               <Nav.Link
-                href="https://soumyajitblogs.vercel.app/"
-                target="_blank"
-                rel="noreferrer"
+                as={Link}
+                to="/chatbot"
+                onClick={() => updateExpanded(false)}
               >
-                <ImBlog style={{ marginBottom: "2px" }} /> Blogs
+                <AiOutlineRobot style={{ marginBottom: "2px" }} /> Chatbot
               </Nav.Link>
             </Nav.Item>
 
-            <Nav.Item className="fork-btn">
-              <Button
-                href="https://github.com/soumyajit4419/Portfolio"
-                target="_blank"
-                className="fork-btn-inner"
-              >
-                <CgGitFork style={{ fontSize: "1.2em" }} />{" "}
-                <AiFillStar style={{ fontSize: "1.1em" }} />
-              </Button>
-            </Nav.Item>
+            {portfolio.socialLinks?.github && (
+              <Nav.Item className="fork-btn">
+                <Button
+                  href={portfolio.socialLinks.github}
+                  target="_blank"
+                  className="fork-btn-inner"
+                  rel="noreferrer"
+                >
+                  <CgGitFork style={{ fontSize: "1.2em" }} />{" "}
+                  <AiFillStar style={{ fontSize: "1.1em" }} />
+                </Button>
+              </Nav.Item>
+            )}
           </Nav>
         </Navbar.Collapse>
       </Container>
