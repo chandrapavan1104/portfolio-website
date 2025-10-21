@@ -76,7 +76,7 @@ The chatbot section sends user questions to my hosted Profile Bot API (`https://
 ### Using your own bot
 
 1. Deploy the Profile Bot backend (instructions in the linked repo).
-2. Update `VITE_CHATBOT_API_URL` inside your local `.env` file to point to your deployment.
+2. Update `VITE_CHATBOT_API_URL` inside your local `.env` file to point to your deployment. The endpoint expects a JSON body with a `query` field, e.g. `{ "query": "Tell me about your AI projects." }`.
 3. Optionally adjust the welcome message or fallback copy in `src/components/Chatbot/Chatbot.jsx`.
 
 ## Deploy

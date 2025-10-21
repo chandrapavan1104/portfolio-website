@@ -24,12 +24,12 @@ function Chatbot() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const question = input.trim();
-    if (!question) {
+    const query = input.trim();
+    if (!query) {
       return;
     }
 
-    setMessages((prev) => [...prev, { role: "user", content: question }]);
+    setMessages((prev) => [...prev, { role: "user", content: query }]);
     setInput("");
     setIsSubmitting(true);
 
@@ -39,7 +39,7 @@ function Chatbot() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ question }),
+        body: JSON.stringify({ query: query }),
       });
 
       if (!response.ok) {
