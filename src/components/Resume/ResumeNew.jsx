@@ -6,13 +6,13 @@ import { AiOutlineDownload } from "react-icons/ai";
 import { Document, Page, pdfjs } from "react-pdf";
 import portfolio from "../../Portfolio";
 import "react-pdf/dist/esm/Page/AnnotationLayer.css";
-import resume from "../../assets/Chandra.pdf";
+import localResume from "../../Assets/Chandra.pdf";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
 
 function ResumeNew() {
   const [width, setWidth] = useState(1200);
-  const resumeLink = resume;
+  const resumeLink = portfolio.resumeLink || localResume;
   const canPreviewPdf = typeof resumeLink === "string" && resumeLink.toLowerCase().endsWith(".pdf");
 
   useEffect(() => {
