@@ -21,11 +21,7 @@ function HomePage() {
     instagram: <AiFillInstagram />,
     linkedin: <FaLinkedinIn />,
   };
-  const coreStacksList = [
-    ...(portfolio.skills?.languages || []),
-    ...(portfolio.skills?.frontend || []),
-    ...(portfolio.skills?.backend || []),
-  ].slice(0, 6);
+  const coreStacksList = ["React", "Angular", "Node.js", "Python", "JavaScript", "TypeScript"];
 
   return (
     <section>

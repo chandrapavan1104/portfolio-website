@@ -4,10 +4,12 @@ import portfolio from "../../Portfolio";
 
 function Type() {
   const highlights = [
-    portfolio.title,
-    portfolio.experience?.[0]?.title,
-    ...(portfolio.skills?.aiMl?.slice(0, 2) || []),
-    ...(portfolio.skills?.frontend?.slice(0, 2) || []),
+    "Full-Stack Engineer",
+    "GenAI Developer",
+    "Eat.",
+    "Code.",
+    "Sleep.",
+    "Repeat.",
   ]
     .filter(Boolean)
     .filter((value, index, self) => self.indexOf(value) === index);
