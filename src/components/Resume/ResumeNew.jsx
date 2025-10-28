@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { Container, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Particle from "../Particle";
@@ -12,8 +12,18 @@ pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/$
 
 function ResumeNew() {
   const [width, setWidth] = useState(1200);
-  const resumeLink = portfolio.resumeLink || localResume;
-  const canPreviewPdf = typeof resumeLink === "string" && resumeLink.toLowerCase().endsWith(".pdf");
+
+  const { previewSource, downloadLink, canPreviewPdf } = useMemo(() => {
+    const remoteLink = portfolio.resumeLink;
+    const hasRemotePdf =
+      typeof remoteLink === "string" && remoteLink.toLowerCase().endsWith(".pdf");
+
+    return {
+      previewSource: hasRemotePdf ? remoteLink : localResume,
+      downloadLink: localResume,
+      canPreviewPdf: Boolean(hasRemotePdf ? remoteLink : localResume),
+    };
+  }, []);
 
   useEffect(() => {
     setWidth(window.innerWidth);
@@ -26,11 +36,10 @@ function ResumeNew() {
         <Row style={{ justifyContent: "center", position: "relative" }}>
           <Button
             variant="primary"
-            href={resumeLink || "#"}
+            href={downloadLink}
             target="_blank"
             rel="noreferrer"
             style={{ maxWidth: "250px" }}
-            disabled={!resumeLink}
           >
             <AiOutlineDownload />
             &nbsp;Download CV
@@ -39,16 +48,14 @@ function ResumeNew() {
 
         {canPreviewPdf ? (
           <Row className="resume">
-            <Document file={resumeLink} className="d-flex justify-content-center">
+            <Document file={previewSource} className="d-flex justify-content-center">
               <Page pageNumber={1} scale={width > 786 ? 1.7 : 0.6} />
             </Document>
           </Row>
         ) : (
           <Row className="resume">
             <p style={{ color: "white", textAlign: "center" }}>
-              {resumeLink
-                ? "The resume opens in a new tab."
-                : "Resume link coming soon."}
+              The resume opens in a new tab.
             </p>
           </Row>
         )}
@@ -56,11 +63,10 @@ function ResumeNew() {
         <Row style={{ justifyContent: "center", position: "relative" }}>
           <Button
             variant="primary"
-            href={resumeLink || "#"}
+            href={downloadLink}
             target="_blank"
             rel="noreferrer"
             style={{ maxWidth: "250px" }}
-            disabled={!resumeLink}
           >
             <AiOutlineDownload />
             &nbsp;Download CV
