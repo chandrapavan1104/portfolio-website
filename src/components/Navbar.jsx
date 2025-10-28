@@ -15,6 +15,7 @@ import {
 
 import { CgFileDocument } from "react-icons/cg";
 import portfolio from "../Portfolio";
+import logo from "../Assets/logo.svg";
 
 function NavBar() {
   const [expand, updateExpanded] = useState(false);
@@ -38,6 +39,9 @@ function NavBar() {
       className={navColour ? "sticky" : "navbar"}
     >
       <Container>
+        <Navbar.Brand as={Link} to="/" className="d-flex align-items-center">
+          <img src={logo} className="cpr-logo" alt="CPR logo" />
+        </Navbar.Brand>
         <Navbar.Toggle
           aria-controls="responsive-navbar-nav"
           onClick={() => {

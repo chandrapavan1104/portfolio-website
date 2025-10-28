@@ -59,19 +59,6 @@ function ResumeNew() {
             </p>
           </Row>
         )}
-
-        <Row style={{ justifyContent: "center", position: "relative" }}>
-          <Button
-            variant="primary"
-            href={downloadLink}
-            target="_blank"
-            rel="noreferrer"
-            style={{ maxWidth: "250px" }}
-          >
-            <AiOutlineDownload />
-            &nbsp;Download CV
-          </Button>
-        </Row>
       </Container>
     </div>
   );

@@ -164,6 +164,22 @@ button:focus {
   width: 2.5em !important;
 }
 
+.cpr-logo {
+  height: 40px;
+  width: auto;
+  transition: transform 0.25s ease;
+}
+
+.cpr-logo:hover {
+  transform: scale(1.05);
+}
+
+@media (max-width: 767px) {
+  .cpr-logo {
+    height: 32px;
+  }
+}
+
 .navbar-nav .nav-link {
   color: white !important;
   padding-right: 1rem !important;
@@ -297,17 +313,6 @@ button:focus {
 .Typewriter__cursor {
   font-size: 2.4em !important;
   color: #b562d6 !important;
-}
-
-@media (max-width: 767px) {
-  .Typewriter__wrapper {
-    font-size: 1.4em !important;
-    font-weight: 500 !important;
-    position: absolute !important;
-  }
-  .Typewriter__cursor {
-    display: none !important;
-  }
 }
 
 .myAvtar {
@@ -771,6 +776,66 @@ button:focus {
   display: inline-block;
 }
 
+@media (max-width: 991px) {
+  .home-content {
+    padding: 6rem 1.5rem 2rem !important;
+    text-align: center;
+  }
+
+  .home-header {
+    text-align: center;
+  }
+
+  .heading,
+  .heading-name {
+    padding-left: 0 !important;
+    text-align: center;
+  }
+
+  .heading {
+    font-size: 2rem !important;
+  }
+
+  .heading-name {
+    font-size: 2.4rem !important;
+    line-height: 1.2;
+  }
+
+  .Typewriter__wrapper {
+    position: static !important;
+    display: block !important;
+    font-size: 1.6em !important;
+    margin-top: 10px;
+    font-weight: 500 !important;
+    text-align: center;
+  }
+
+  .Typewriter__cursor {
+    display: inline-block !important;
+    font-size: 1.6em !important;
+  }
+
+  .active-search-note {
+    width: 100%;
+    text-align: center;
+    margin-top: 16px;
+  }
+}
+
+@media (max-width: 575px) {
+  .heading {
+    font-size: 1.7rem !important;
+  }
+
+  .heading-name {
+    font-size: 2rem !important;
+  }
+
+  .Typewriter__wrapper {
+    font-size: 1.3em !important;
+  }
+}
+
 /* --------- */
 /* Chatbot Section */
 /* --------- */
@@ -884,5 +949,70 @@ button:focus {
 
   .chatbot-form .btn-primary {
     width: 100%;
+  }
+}
+
+.github-calendar-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  padding-bottom: 1rem;
+}
+
+.github-calendar-wrapper svg {
+  min-width: 100%;
+}
+
+.github-calendar-legend {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 12px;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.95rem;
+}
+
+.github-calendar-legend .legend-label {
+  white-space: nowrap;
+}
+
+.github-calendar-legend .legend-bar {
+  display: flex;
+  gap: 6px;
+}
+
+.github-calendar-legend .legend-bar span {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  background: rgba(199, 112, 240, 0.25);
+}
+
+.github-calendar-legend .legend-bar span:nth-child(2) {
+  background: rgba(199, 112, 240, 0.45);
+}
+
+.github-calendar-legend .legend-bar span:nth-child(3) {
+  background: rgba(199, 112, 240, 0.65);
+}
+
+.github-calendar-legend .legend-bar span:nth-child(4) {
+  background: rgba(199, 112, 240, 0.85);
+}
+
+.github-calendar-legend .legend-bar span:nth-child(5) {
+  background: rgba(199, 112, 240, 1);
+}
+
+@media (max-width: 575px) {
+  .github-calendar-legend {
+    font-size: 0.85rem;
+    gap: 8px;
+  }
+
+  .github-calendar-legend .legend-bar span {
+    width: 14px;
+    height: 14px;
   }
 }
