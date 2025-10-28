@@ -47,6 +47,13 @@ function HomePage() {
                 {portfolio.subTitle && (
                   <p className="heading-description">{portfolio.subTitle}</p>
                 )}
+                <p className="active-search-note">
+                  <span role="img" aria-label="rocket">
+                    🚀
+                  </span>{" "}
+                  I&apos;m actively looking for new opportunities—let&apos;s
+                  build something impactful together.
+                </p>
               </div>
             </Col>
 
