@@ -15,6 +15,7 @@ function Chatbot() {
   ]);
   const [input, setInput] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [sessionId, setSessionId] = useState(null);
   const endOfChatRef = useRef(null);
   const firstName = portfolio.name?.split(" ")[0] || "You";
 
@@ -34,12 +35,17 @@ function Chatbot() {
     setIsSubmitting(true);
 
     try {
+      const payload = { query };
+      if (sessionId) {
+        payload.session_id = sessionId;
+      }
+
       const response = await fetch(apiUrl, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ query: query }),
+        body: JSON.stringify(payload),
       });
 
       if (!response.ok) {
@@ -47,6 +53,9 @@ function Chatbot() {
       }
 
       const data = await response.json();
+      if (data?.session_id) {
+        setSessionId(data.session_id);
+      }
       const answer =
         data?.answer ||
         data?.response ||

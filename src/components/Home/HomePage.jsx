@@ -47,13 +47,6 @@ function HomePage() {
                 {portfolio.subTitle && (
                   <p className="heading-description">{portfolio.subTitle}</p>
                 )}
-                <p className="active-search-note">
-                  <span role="img" aria-label="rocket">
-                    🚀
-                  </span>{" "}
-                  I&apos;m actively looking for new opportunities—let&apos;s
-                  build something impactful together.
-                </p>
               </div>
             </Col>
 
@@ -103,6 +96,16 @@ function HomePage() {
             <h1>Find Me On</h1>
             <p>
               Feel free to <span className="purple">connect </span>with me
+            </p>
+            <p className="active-search-note home-contact-note">
+              <span role="img" aria-label="rocket">
+                🚀
+              </span>{" "}
+              I&apos;m actively looking for new opportunities—drop a note at{" "}
+              <a href={`mailto:${portfolio.email}`} className="home-contact-email">
+                {portfolio.email}
+              </a>{" "}
+              or say hi on any of the platforms below.
             </p>
             <ul className="home-about-social-links">
               {Object.entries(socialLinks)

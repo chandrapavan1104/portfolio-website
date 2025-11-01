@@ -776,6 +776,20 @@ button:focus {
   display: inline-block;
 }
 
+.home-contact-note {
+  margin-bottom: 24px;
+}
+
+.home-contact-email {
+  color: #c770f0;
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+.home-contact-email:hover {
+  color: #a955e6;
+}
+
 @media (max-width: 991px) {
   .home-content {
     padding: 6rem 1.5rem 2rem !important;
@@ -819,6 +833,10 @@ button:focus {
     width: 100%;
     text-align: center;
     margin-top: 16px;
+  }
+
+  .home-contact-note {
+    margin-bottom: 20px;
   }
 }
 
