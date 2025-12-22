@@ -915,6 +915,86 @@ button:focus {
   border-color: rgba(199, 112, 240, 0.5);
 }
 
+.chatbot-message-content > :first-child {
+  margin-top: 0;
+}
+
+.chatbot-message-content > :last-child {
+  margin-bottom: 0;
+}
+
+.chatbot-message-content h1,
+.chatbot-message-content h2,
+.chatbot-message-content h3 {
+  margin: 0 0 0.65rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.chatbot-message-content h1 {
+  font-size: 1.15rem;
+}
+
+.chatbot-message-content h2 {
+  font-size: 1.05rem;
+}
+
+.chatbot-message-content h3 {
+  font-size: 1rem;
+}
+
+.chatbot-message-content p {
+  margin: 0 0 0.75rem;
+}
+
+.chatbot-message-content ul,
+.chatbot-message-content ol {
+  margin: 0 0 0.75rem;
+  padding-left: 1.25rem;
+}
+
+.chatbot-message-content li {
+  margin-bottom: 0.35rem;
+}
+
+.chatbot-message-content a {
+  color: rgba(226, 182, 255, 0.95);
+  text-decoration: underline;
+}
+
+.chatbot-message-content code {
+  background: rgba(10, 4, 22, 0.7);
+  border: 1px solid rgba(199, 112, 240, 0.35);
+  padding: 0.1rem 0.35rem;
+  border-radius: 6px;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  font-size: 0.9em;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.chatbot-message-content pre {
+  background: rgba(10, 4, 22, 0.9);
+  border: 1px solid rgba(199, 112, 240, 0.35);
+  padding: 12px 14px;
+  border-radius: 10px;
+  overflow-x: auto;
+  margin: 0 0 0.85rem;
+}
+
+.chatbot-message-content pre code {
+  background: transparent;
+  border: none;
+  padding: 0;
+  font-size: 0.9em;
+}
+
+.chatbot-message-content blockquote {
+  border-left: 3px solid rgba(199, 112, 240, 0.7);
+  padding-left: 12px;
+  margin: 0 0 0.75rem;
+  color: rgba(255, 255, 255, 0.75);
+}
+
 .chatbot-form {
   display: flex;
   gap: 12px;
