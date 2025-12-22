@@ -859,30 +859,60 @@ button:focus {
 /* --------- */
 .chatbot-section {
   position: relative;
-  padding: 120px 0 80px;
+  padding: 100px 16px 24px;
   background: var(--section-background-color);
   color: white;
   min-height: 100vh;
+  height: 100vh;
+  box-sizing: border-box;
   display: flex;
-  align-items: center;
+  align-items: stretch;
+  overflow: hidden;
+}
+
+.chatbot-container,
+.chatbot-row,
+.chatbot-column {
+  height: 100%;
+}
+
+.chatbot-column {
+  display: flex;
+  flex-direction: column;
 }
 
 .chatbot-header {
   text-align: center;
-  margin-bottom: 30px;
+  margin-bottom: 18px;
+}
+
+.chatbot-header h1 {
+  font-size: 1.7rem;
+  margin-bottom: 0.4rem;
+}
+
+.chatbot-header p {
+  font-size: 0.95rem;
+  max-width: 720px;
+  margin: 0 auto;
 }
 
 .chatbot-window {
   background: rgba(9, 5, 22, 0.85);
   border-radius: 18px;
   border: 1px solid rgba(199, 112, 240, 0.2);
-  padding: 30px;
+  padding: 26px;
   box-shadow: 0 30px 60px rgba(0, 0, 0, 0.35);
   backdrop-filter: blur(6px);
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 .chatbot-messages {
-  max-height: 420px;
+  flex: 1;
+  min-height: 0;
   overflow-y: auto;
   padding-right: 10px;
   margin-bottom: 24px;
@@ -908,6 +938,7 @@ button:focus {
   border-radius: 14px;
   line-height: 1.6;
   color: rgba(255, 255, 255, 0.85);
+  font-size: 0.95rem;
 }
 
 .chatbot-message-user .chatbot-message-content {
@@ -1030,7 +1061,15 @@ button:focus {
 
 @media (max-width: 767px) {
   .chatbot-section {
-    padding: 100px 0 60px;
+    padding: 90px 12px 20px;
+  }
+
+  .chatbot-header h1 {
+    font-size: 1.45rem;
+  }
+
+  .chatbot-header p {
+    font-size: 0.9rem;
   }
 
   .chatbot-window {
@@ -1038,7 +1077,7 @@ button:focus {
   }
 
   .chatbot-messages {
-    max-height: 360px;
+    margin-bottom: 16px;
   }
 
   .chatbot-form {

@@ -198,9 +198,9 @@ function Chatbot() {
 
   return (
     <section className="chatbot-section">
-      <Container>
-        <Row className="justify-content-center">
-          <Col lg={8}>
+      <Container fluid className="chatbot-container">
+        <Row className="justify-content-center chatbot-row">
+          <Col lg={12} className="chatbot-column">
             <div className="chatbot-header">
               <h1>
                 Meet <span className="purple">{portfolio.name}</span>&apos;s AI
