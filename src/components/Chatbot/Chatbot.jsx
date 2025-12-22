@@ -12,7 +12,7 @@ const DEFAULT_ASSISTANT_MESSAGE = {
 
 function Chatbot() {
   const apiUrl = import.meta.env.VITE_CHATBOT_API_URL ||
-  "https://profile-bot-api-977721269659.us-west2.run.app/ask";
+  "https://profile-bot-api-usc-977721269659.us-central1.run.app/ask";
   const streamUrl = apiUrl.endsWith("/ask") ? `${apiUrl}/stream` : apiUrl;
   const [messages, setMessages] = useState(() => {
     if (typeof window === "undefined") {
