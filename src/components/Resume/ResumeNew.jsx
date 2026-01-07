@@ -6,7 +6,7 @@ import { AiOutlineDownload } from "react-icons/ai";
 import { Document, Page, pdfjs } from "react-pdf";
 import portfolio from "../../Portfolio";
 import "react-pdf/dist/esm/Page/AnnotationLayer.css";
-import localResume from "../../Assets/Chandra.pdf";
+import localResume from "../../Assets/CPRCV (3).pdf";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
 
