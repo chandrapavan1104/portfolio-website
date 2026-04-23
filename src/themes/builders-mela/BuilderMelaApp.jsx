@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
+import DoodleReel from "./components/DoodleReel";
 import MelaNav from "./components/MelaNav";
 import MelaFooter from "./components/MelaFooter";
 import MelaHome from "./pages/MelaHome";
@@ -41,6 +42,7 @@ function BuilderMelaApp() {
       className={`mela-theme ${isGuide ? "mela-guide-mode" : ""}`}
       data-appearance={appearance}
     >
+      <DoodleReel />
       <MelaNav appearance={appearance} onToggleAppearance={toggleAppearance} />
       <main className="mela-main">
         <Routes>
