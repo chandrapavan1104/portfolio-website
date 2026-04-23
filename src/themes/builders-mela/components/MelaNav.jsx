@@ -9,6 +9,7 @@ import {
 import { BsGithub, BsGrid3X3Gap, BsMoonStars, BsSun } from "react-icons/bs";
 import { FaLinkedinIn } from "react-icons/fa";
 import portfolio from "../../../Portfolio";
+import logo from "../../../Assets/logo.svg";
 
 const navItems = [
   { to: "/", label: "Home", icon: <AiOutlineHome /> },
@@ -28,16 +29,12 @@ function MelaNav({ appearance = "dark", onToggleAppearance }) {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const initials = portfolio.name
-    .split(" ")
-    .map((part) => part[0])
-    .join("")
-    .slice(0, 3);
-
   return (
     <header className={`mela-nav ${scrolled ? "mela-nav-scrolled" : ""}`}>
       <NavLink to="/" className="mela-brand" aria-label="Build Grounds home">
-        <span className="mela-brand-mark">{initials}</span>
+        <span className="mela-brand-mark">
+          <img src={logo} alt="" className="mela-brand-logo" />
+        </span>
         <span className="mela-brand-text">
           <span>Build</span>
           <strong>Grounds</strong>
