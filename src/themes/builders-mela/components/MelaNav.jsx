@@ -6,7 +6,7 @@ import {
   AiOutlineRobot,
   AiOutlineTool,
 } from "react-icons/ai";
-import { BsGithub, BsGrid3X3Gap } from "react-icons/bs";
+import { BsGithub, BsGrid3X3Gap, BsMoonStars, BsSun } from "react-icons/bs";
 import { FaLinkedinIn } from "react-icons/fa";
 import portfolio from "../../../Portfolio";
 
@@ -18,7 +18,7 @@ const navItems = [
   { to: "/chatbot", label: "AI Guide", icon: <AiOutlineRobot /> },
 ];
 
-function MelaNav() {
+function MelaNav({ appearance = "dark", onToggleAppearance }) {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -61,6 +61,15 @@ function MelaNav() {
       </nav>
 
       <div className="mela-socials" aria-label="Social links">
+        <button
+          type="button"
+          className="mela-theme-toggle"
+          onClick={onToggleAppearance}
+          aria-label={`Switch to ${appearance === "dark" ? "light" : "dark"} theme`}
+          title={`Switch to ${appearance === "dark" ? "light" : "dark"} theme`}
+        >
+          {appearance === "dark" ? <BsSun /> : <BsMoonStars />}
+        </button>
         {portfolio.socialLinks?.github && (
           <a
             href={portfolio.socialLinks.github}

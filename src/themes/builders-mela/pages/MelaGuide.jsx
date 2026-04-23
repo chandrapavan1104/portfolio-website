@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
-import { AiOutlineSend } from "react-icons/ai";
+import { AiOutlineLoading3Quarters, AiOutlineSend } from "react-icons/ai";
 import portfolio from "../../../Portfolio";
 
 const CHAT_HISTORY_KEY = "buildersMelaGuideMessages";
@@ -58,12 +58,22 @@ function MelaGuide() {
   });
   const [input, setInput] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isWaitingForFirstChunk, setIsWaitingForFirstChunk] = useState(false);
   const [sessionId, setSessionId] = useState(null);
   const endOfChatRef = useRef(null);
+  const messagesRef = useRef(null);
   const firstName = portfolio.name?.split(" ")[0] || "You";
 
   useEffect(() => {
-    endOfChatRef.current?.scrollIntoView({ behavior: "smooth" });
+    const messagesElement = messagesRef.current;
+    if (!messagesElement) {
+      return;
+    }
+
+    messagesElement.scrollTo({
+      top: messagesElement.scrollHeight,
+      behavior: "smooth",
+    });
   }, [messages]);
 
   useEffect(() => {
@@ -122,6 +132,7 @@ function MelaGuide() {
     ]);
     setInput("");
     setIsSubmitting(true);
+    setIsWaitingForFirstChunk(true);
 
     try {
       const payload = { query: cleanQuery, messages: historyMessages };
@@ -153,6 +164,7 @@ function MelaGuide() {
             data?.response ||
             "I do not have a grounded answer for that yet."
         );
+        setIsWaitingForFirstChunk(false);
         return;
       }
 
@@ -180,14 +192,17 @@ function MelaGuide() {
             doneStreaming = true;
             break;
           }
+          setIsWaitingForFirstChunk(false);
           appendAssistantContent(data);
         }
       }
     } catch {
+      setIsWaitingForFirstChunk(false);
       replaceAssistantContent(
         "The guide could not reach the profile assistant right now. Try again in a moment."
       );
     } finally {
+      setIsWaitingForFirstChunk(false);
       setIsSubmitting(false);
     }
   };
@@ -217,7 +232,8 @@ function MelaGuide() {
       </div>
 
       <div className="mela-guide-window">
-        <div className="mela-guide-messages">
+        <div className="mela-guide-sketch" aria-hidden="true" />
+        <div className="mela-guide-messages" ref={messagesRef}>
           {messages.map((message, index) => (
             <article
               className={`mela-guide-message mela-guide-${message.role}`}
@@ -225,7 +241,17 @@ function MelaGuide() {
             >
               <span>{message.role === "assistant" ? "AI Guide" : firstName}</span>
               <div>
-                <ReactMarkdown>{String(message.content)}</ReactMarkdown>
+                {message.role === "assistant" &&
+                isWaitingForFirstChunk &&
+                index === messages.length - 1 &&
+                !message.content ? (
+                  <div className="mela-ai-loader" role="status" aria-live="polite">
+                    <AiOutlineLoading3Quarters />
+                    <span>Fetching grounded answer</span>
+                  </div>
+                ) : (
+                  <ReactMarkdown>{String(message.content)}</ReactMarkdown>
+                )}
               </div>
             </article>
           ))}
