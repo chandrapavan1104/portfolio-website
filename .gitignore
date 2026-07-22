@@ -44,3 +44,6 @@ pnpm-debug.log*
 
 Server/node_modules
 Server/config.js
+
+# Scratch folder for staging assets before they are placed
+/incoming

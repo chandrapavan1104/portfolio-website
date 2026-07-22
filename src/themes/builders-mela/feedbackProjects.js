@@ -50,8 +50,11 @@ export const feedbackProjects = [
     screenshots: [
       { src: "/projects/code-as-a-chat/dashboard.jpg", label: "Dashboard" },
       { src: "/projects/code-as-a-chat/chat.jpg", label: "Chat with Gajala" },
-      { src: "/projects/code-as-a-chat/codaur.jpg", label: "Codaur — live usage" },
-      { src: "/projects/code-as-a-chat/mac.jpg", label: "Mac control" },
+      {
+        src: "/projects/code-as-a-chat/skills.jpg",
+        label: "Skills — drop a file to add one",
+      },
+      { src: "/projects/code-as-a-chat/system.jpg", label: "Live Mac control" },
     ],
     links: {
       github: "",
