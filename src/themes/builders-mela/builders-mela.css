@@ -1833,6 +1833,51 @@ body[data-mela-appearance="light"] .App {
   margin: 0;
 }
 
+.mela-roadmap {
+  display: grid;
+  gap: 0.7rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.mela-roadmap-item {
+  align-items: flex-start;
+  background: rgba(32, 23, 15, 0.55);
+  border: 1px dashed var(--mela-line-strong);
+  display: flex;
+  gap: 0.9rem;
+  padding: 0.9rem 1.1rem;
+}
+
+.mela-roadmap-tag {
+  background: transparent;
+  border: 1px solid var(--mela-gold);
+  color: var(--mela-gold);
+  flex: none;
+  font-family: "PT Mono", monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  margin-top: 0.15rem;
+  padding: 0.18rem 0.45rem;
+  text-transform: uppercase;
+}
+
+.mela-roadmap-item h3 {
+  color: var(--mela-text);
+  font-size: 1.05rem;
+  font-weight: 800;
+  line-height: 1.2;
+  margin: 0 0 0.3rem;
+}
+
+.mela-roadmap-item p {
+  color: var(--mela-muted);
+  font-size: 0.9rem;
+  line-height: 1.55;
+  margin: 0;
+}
+
 .mela-feedback-panel-inner {
   background: rgba(32, 23, 15, 0.95);
   border: 1px solid var(--mela-line-strong);

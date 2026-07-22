@@ -18,33 +18,53 @@ export const feedbackProjects = [
     pillars: [
       {
         title: "Every coding agent, one chat",
-        body: "Claude Code, Codex and Gemini as real agentic CLIs on my own hardware. Switch mid-conversation; each keeps its own preserved context.",
+        body: "Claude Code, Codex and Gemini run as real agentic CLIs on my hardware — not a model router. Switch engine or model mid-conversation and each keeps its own thread; if one hits a rate limit it falls back to a backup model, so the chat never dies.",
+      },
+      {
+        title: "It fixes its own bugs",
+        body: "Describe a problem from your phone — attach a screenshot — and it diagnoses against the live codebase, patches on a branch and rebuilds the app into a one-tap update. Risky server changes are gated for your OK, health-checked on restart and auto-rolled-back if they don't boot, so a bad fix can't lock you out.",
       },
       {
         title: "Remote control of the machine",
-        body: "Lock, sleep, screenshot, notify, connect a keyboard — over an encrypted private tunnel, no cloud middleman.",
+        body: "Lock, wake, sleep, screenshot, webcam, notify, connect a keyboard — over an encrypted private tunnel, no cloud middleman. Your Mac obeys plain-English commands from anywhere.",
       },
       {
         title: "Codaur — usage on one screen",
-        body: "Live 5-hour and weekly limits, tokens and plan for every model. Three dashboards collapsed into one.",
+        body: "Live 5-hour and weekly limits, tokens and plan for every model, refreshed as you watch. Three provider dashboards collapsed into one glance.",
       },
       {
         title: "Brain Dump",
-        body: "Dump a rough idea, and it becomes a scaffolded project — wired up, deployed and tested. From your phone.",
+        body: "Fire a rough idea, bug or todo at it from your phone and it lands as a living note the agent can pick up later — your scratchpad and your backlog in the same place you already talk to it.",
       },
       {
         title: "Private and featherweight",
-        body: "A single FastAPI process. Local SQLite, token-gated API, optional PII masking. No Node gateway, no Docker, no runtime zoo.",
+        body: "One FastAPI process, local SQLite and a token-gated API — your code and data never leave the Mac. No Node gateway, no Docker, no runtime zoo.",
+      },
+    ],
+    roadmap: [
+      {
+        title: "Brain Dump → shipped app",
+        body: "A rough idea becomes a scaffolded project — wired up, deployed and tested. The ship pipeline already exists for fixes; next it runs greenfield.",
+      },
+      {
+        title: "On-device PII / PCI masking",
+        body: "Optional redaction so sensitive strings are masked on the Mac before anything is handed to a model.",
+      },
+      {
+        title: "CI + a real release channel",
+        body: "Automated checks on every change and a cleaner path from build to your phone.",
       },
     ],
     stack: [
       "Python",
       "FastAPI",
       "SQLite",
+      "Flutter",
       "Claude Code",
       "Codex",
       "Gemini CLI",
       "Tailscale",
+      "Firebase",
       "macOS",
     ],
     screenshots: [
@@ -52,9 +72,9 @@ export const feedbackProjects = [
       { src: "/projects/code-as-a-chat/chat.jpg", label: "Chat with Gajala" },
       {
         src: "/projects/code-as-a-chat/skills.jpg",
-        label: "Skills — drop a file to add one",
+        label: "Skills — pin what you use",
       },
-      { src: "/projects/code-as-a-chat/system.jpg", label: "Live Mac control" },
+      { src: "/projects/code-as-a-chat/system.jpg", label: "Live system stats" },
     ],
     links: {
       github: "",
@@ -62,9 +82,10 @@ export const feedbackProjects = [
     },
     highlightOptions: [
       { value: "agents", label: "All three agents in one chat" },
+      { value: "selfheal", label: "It fixes its own bugs" },
       { value: "remote", label: "Remote control of the Mac" },
       { value: "codaur", label: "Codaur usage dashboard" },
-      { value: "braindump", label: "Brain Dump → deployed app" },
+      { value: "braindump", label: "Brain Dump" },
       { value: "private", label: "Local-first / privacy" },
       { value: "lightweight", label: "One process, no Docker" },
     ],

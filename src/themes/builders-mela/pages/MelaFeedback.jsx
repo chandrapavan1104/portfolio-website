@@ -236,6 +236,23 @@ function MelaFeedback() {
             </div>
           </section>
 
+          {project.roadmap?.length > 0 && (
+            <section className="mela-feedback-block">
+              <h2>What is coming next</h2>
+              <ul className="mela-roadmap">
+                {project.roadmap.map((item) => (
+                  <li className="mela-roadmap-item" key={item.title}>
+                    <span className="mela-roadmap-tag">Soon</span>
+                    <div>
+                      <h3>{item.title}</h3>
+                      <p>{item.body}</p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+
           {project.stack?.length > 0 && (
             <section className="mela-feedback-block">
               <h2>Built with</h2>
