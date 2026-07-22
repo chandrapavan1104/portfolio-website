@@ -8,6 +8,8 @@ import MelaAbout from "./pages/MelaAbout";
 import MelaProjects from "./pages/MelaProjects";
 import MelaResume from "./pages/MelaResume";
 import MelaGuide from "./pages/MelaGuide";
+import MelaBuilding from "./pages/MelaBuilding";
+import MelaFeedback from "./pages/MelaFeedback";
 
 function BuilderMelaApp() {
   const location = useLocation();
@@ -51,6 +53,9 @@ function BuilderMelaApp() {
           <Route path="/project" element={<MelaProjects />} />
           <Route path="/resume" element={<MelaResume />} />
           <Route path="/chatbot" element={<MelaGuide />} />
+          <Route path="/building" element={<MelaBuilding />} />
+          <Route path="/feedback/:slug" element={<MelaFeedback />} />
+          <Route path="/feedback" element={<Navigate to="/building" replace />} />
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </main>

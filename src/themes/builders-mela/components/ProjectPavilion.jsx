@@ -1,10 +1,13 @@
 import React from "react";
-import { AiOutlineArrowRight } from "react-icons/ai";
+import { Link } from "react-router-dom";
+import { AiOutlineArrowRight, AiOutlineMessage } from "react-icons/ai";
 import { BsGithub } from "react-icons/bs";
+import { getFeedbackSlugForProject } from "../feedbackProjects";
 
 function ProjectPavilion({ project, index, featured = false }) {
   const stack = project.techStack || project.stack || [];
   const district = project.category || stack[0] || "software";
+  const feedbackSlug = getFeedbackSlugForProject(project.name);
 
   return (
     <article
@@ -41,6 +44,12 @@ function ProjectPavilion({ project, index, featured = false }) {
             <AiOutlineArrowRight />
             <span>Live</span>
           </a>
+        )}
+        {feedbackSlug && (
+          <Link to={`/feedback/${feedbackSlug}`} className="mela-shape-link">
+            <AiOutlineMessage />
+            <span>Shape this</span>
+          </Link>
         )}
       </div>
     </article>

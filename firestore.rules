@@ -1,0 +1,59 @@
+rules_version = '2';
+
+// Anonymous feedback collection.
+//
+// The web config in the client bundle is public by design, so THIS FILE is the
+// only thing standing between the internet and the database. Both collections
+// are create-only and permanently unreadable from any client: read submissions
+// in the Firebase console or with the Admin SDK, which bypass these rules.
+//
+// Deploy with:  firebase deploy --only firestore:rules
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isText(value, max) {
+      return value is string && value.size() <= max;
+    }
+
+    match /feedback/{docId} {
+      allow read, update, delete: if false;
+
+      allow create: if
+        request.resource.data.keys().hasOnly([
+          'projectSlug', 'rating', 'role', 'wouldUse', 'highlights',
+          'missing', 'extra', 'contact', 'ref', 'createdAt'
+        ])
+        && isText(request.resource.data.projectSlug, 64)
+        && request.resource.data.projectSlug.size() > 0
+        && request.resource.data.rating is int
+        && request.resource.data.rating >= 1
+        && request.resource.data.rating <= 5
+        && isText(request.resource.data.role, 40)
+        && isText(request.resource.data.wouldUse, 20)
+        && request.resource.data.highlights is list
+        && request.resource.data.highlights.size() <= 8
+        && isText(request.resource.data.missing, 2000)
+        && isText(request.resource.data.extra, 2000)
+        && isText(request.resource.data.contact, 200)
+        && isText(request.resource.data.ref, 60)
+        // Forces serverTimestamp(): a client cannot backdate or forge this.
+        && request.resource.data.createdAt == request.time;
+    }
+
+    match /pageviews/{docId} {
+      allow read, update, delete: if false;
+
+      allow create: if
+        request.resource.data.keys().hasOnly(['projectSlug', 'ref', 'createdAt'])
+        && isText(request.resource.data.projectSlug, 64)
+        && request.resource.data.projectSlug.size() > 0
+        && isText(request.resource.data.ref, 60)
+        && request.resource.data.createdAt == request.time;
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

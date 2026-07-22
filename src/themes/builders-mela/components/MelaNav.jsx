@@ -6,7 +6,13 @@ import {
   AiOutlineRobot,
   AiOutlineTool,
 } from "react-icons/ai";
-import { BsGithub, BsGrid3X3Gap, BsMoonStars, BsSun } from "react-icons/bs";
+import {
+  BsGithub,
+  BsGrid3X3Gap,
+  BsHammer,
+  BsMoonStars,
+  BsSun,
+} from "react-icons/bs";
 import { FaLinkedinIn } from "react-icons/fa";
 import portfolio from "../../../Portfolio";
 import logo from "../../../Assets/logo.svg";
@@ -15,6 +21,7 @@ const navItems = [
   { to: "/", label: "Home", icon: <AiOutlineHome /> },
   { to: "/about", label: "Skills", icon: <AiOutlineTool /> },
   { to: "/project", label: "Projects", icon: <BsGrid3X3Gap /> },
+  { to: "/building", label: "Building", icon: <BsHammer /> },
   { to: "/resume", label: "Resume", icon: <AiOutlineFileText /> },
   { to: "/chatbot", label: "AI Guide", icon: <AiOutlineRobot /> },
 ];

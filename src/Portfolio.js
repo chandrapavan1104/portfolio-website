@@ -118,6 +118,24 @@ const portfolio = {
     // =======================
     projects: [
       {
+        name: "Code-as-a-Chat",
+        category: "current build",
+        techStack: [
+          "Python",
+          "FastAPI",
+          "SQLite",
+          "Claude Code",
+          "Codex",
+          "Gemini CLI",
+          "Tailscale",
+          "macOS",
+        ],
+        description:
+          "An always-on dev server running on my own Mac, driven entirely from my phone in plain English. Claude Code, Codex and Gemini run as full agentic CLIs on local hardware — not a model router — so code never leaves the machine. Includes Codaur, a single dashboard for every model's live usage and limits.",
+        github: "",
+        demo: "",
+      },
+      {
         name: "Kirana.ai",
         techStack: [
           "Next.js",
