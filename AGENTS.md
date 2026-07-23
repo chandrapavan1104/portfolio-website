@@ -21,10 +21,11 @@
 
 ## Current State
 The active Build Grounds theme has a responsive light/dark portfolio experience.
-Its Infinite Runtime brand mark is used consistently in navigation, the hero,
-favicon, and installable-app metadata.
+Its Commit Pulse brand mark blends a git graph with an ECG/lightning spike and
+is used consistently in navigation, the hero, favicon, and installable-app metadata.
 
 ## Changelog (most recent first)
+- 2026-07-22 20:15 — replaced Infinite Runtime with the Commit Pulse logo across site branding
 - 2026-07-22 19:47 — replaced the CPR monogram with the Infinite Runtime logo across site branding
 - 2026-07-22 19:42 — context initialized
 

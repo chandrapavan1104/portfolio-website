@@ -43,7 +43,7 @@ function MelaHome() {
             <img
               src={logo}
               className="mela-gate-logo"
-              alt="Infinite Runtime logo"
+              alt="Commit Pulse logo"
             />
           </div>
           <div className="mela-floating-sign sign-one">AI</div>

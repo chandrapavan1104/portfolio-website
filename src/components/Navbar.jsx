@@ -43,7 +43,7 @@ function NavBar() {
           <img
             src={logo}
             className="cpr-logo"
-            alt="Chandra Builds Infinite Runtime logo"
+            alt="Chandra Builds Commit Pulse logo"
           />
         </Navbar.Brand>
         <Navbar.Toggle
