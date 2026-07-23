@@ -9,6 +9,7 @@ import {
 import { BsGithub, BsLightningCharge } from "react-icons/bs";
 import { FaLinkedinIn } from "react-icons/fa";
 import portfolio from "../../../Portfolio";
+import logo from "../../../Assets/logo.svg";
 import MelaSection from "../components/MelaSection";
 import ProjectPavilion from "../components/ProjectPavilion";
 import { featuredProjectNames, getMelaProjects } from "../melaData";
@@ -39,7 +40,11 @@ function MelaHome() {
           <div className="mela-route-node mela-node-b" />
           <div className="mela-route-node mela-node-c" />
           <div className="mela-gate-arch">
-            <span>CPR</span>
+            <img
+              src={logo}
+              className="mela-gate-logo"
+              alt="Infinite Runtime logo"
+            />
           </div>
           <div className="mela-floating-sign sign-one">AI</div>
           <div className="mela-floating-sign sign-two">API</div>

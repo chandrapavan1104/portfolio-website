@@ -1,10 +1,22 @@
-<svg width="192" height="192" viewBox="0 0 192 192" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect x="16" y="16" width="160" height="160" fill="#100B07"/>
-  <path d="M40 132C70 166 126 166 152 118" stroke="#F2A93B" stroke-width="12" stroke-linecap="round"/>
-  <path d="M150 62C118 24 60 30 36 72" stroke="#49D0BF" stroke-width="12" stroke-linecap="round"/>
-  <path d="M66 118V62H104C123 62 134 72 134 88C134 105 121 114 105 114H86" stroke="#FFF5E7" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M115 114L140 142" stroke="#EF5F7C" stroke-width="12" stroke-linecap="round"/>
-  <path d="M54 84C54 66 70 50 92 48" stroke="#FFF5E7" stroke-width="8" stroke-linecap="round"/>
-  <circle cx="151" cy="59" r="5" fill="#F2A93B"/>
-  <circle cx="39" cy="133" r="5" fill="#49D0BF"/>
+<svg viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <title>Infinite Runtime — Chandra Builds</title>
+  <defs>
+    <linearGradient id="runtime-loop" x1="20" y1="38" x2="111" y2="90" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F2A93B"/>
+      <stop offset="0.48" stop-color="#EF5F7C"/>
+      <stop offset="1" stop-color="#49D0BF"/>
+    </linearGradient>
+  </defs>
+  <rect x="5" y="5" width="118" height="118" rx="30" fill="#100B07"/>
+  <rect x="6" y="6" width="116" height="116" rx="29" stroke="#F2A93B" stroke-opacity=".5" stroke-width="2"/>
+  <path
+    d="M24 64C24 43 46 35 60 54L76 77C89 96 111 86 111 64C111 43 89 34 76 53L59 77C46 96 24 85 24 64Z"
+    stroke="url(#runtime-loop)"
+    stroke-width="9"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+  <path d="M48 49L34 64L48 79" stroke="#FFF5E7" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M88 49L102 64L88 79" stroke="#FFF5E7" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M64 57V71" stroke="#FFF5E7" stroke-width="5" stroke-linecap="round"/>
 </svg>

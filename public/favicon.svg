@@ -1,8 +1,22 @@
-<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect x="4" y="4" width="56" height="56" fill="#100B07"/>
-  <path d="M14 44C24 55 43 55 52 40" stroke="#F2A93B" stroke-width="4" stroke-linecap="round"/>
-  <path d="M50 21C39 8 20 10 12 24" stroke="#49D0BF" stroke-width="4" stroke-linecap="round"/>
-  <path d="M22 38V21H34C40 21 43 24 43 29C43 34 39 37 34 37H29" stroke="#FFF5E7" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M38 37L45 45" stroke="#EF5F7C" stroke-width="4" stroke-linecap="round"/>
-  <path d="M18 28C18 23 22 18 28 17" stroke="#FFF5E7" stroke-width="3" stroke-linecap="round"/>
+<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <title>Infinite Runtime — Chandra Builds</title>
+  <defs>
+    <linearGradient id="runtime-loop" x1="10" y1="19" x2="56" y2="45" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F2A93B"/>
+      <stop offset=".48" stop-color="#EF5F7C"/>
+      <stop offset="1" stop-color="#49D0BF"/>
+    </linearGradient>
+  </defs>
+  <rect x="2" y="2" width="60" height="60" rx="15" fill="#100B07"/>
+  <rect x="3" y="3" width="58" height="58" rx="14" stroke="#F2A93B" stroke-opacity=".5"/>
+  <path
+    d="M12 32C12 21.5 23 17.5 30 27L38 38.5C44.5 48 55.5 43 55.5 32C55.5 21.5 44.5 17 38 26.5L29.5 38.5C23 48 12 42.5 12 32Z"
+    stroke="url(#runtime-loop)"
+    stroke-width="4.5"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+  <path d="M24 24.5L17 32L24 39.5" stroke="#FFF5E7" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M44 24.5L51 32L44 39.5" stroke="#FFF5E7" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M32 28.5V35.5" stroke="#FFF5E7" stroke-width="2.5" stroke-linecap="round"/>
 </svg>

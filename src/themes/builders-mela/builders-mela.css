@@ -547,11 +547,13 @@ body[data-mela-appearance="light"] .App {
   position: absolute;
 }
 
-.mela-gate-arch span {
-  color: var(--mela-gold);
-  font-family: "PT Mono", monospace;
-  font-size: 1.6rem;
-  font-weight: 800;
+.mela-gate-logo {
+  display: block;
+  filter: drop-shadow(0 12px 22px rgba(0, 0, 0, 0.3));
+  height: 94px;
+  position: relative;
+  width: 94px;
+  z-index: 1;
 }
 
 .mela-floating-sign {
