@@ -15,7 +15,7 @@ import {
 } from "react-icons/bs";
 import { FaLinkedinIn } from "react-icons/fa";
 import portfolio from "../../../Portfolio";
-import logo from "../../../Assets/logo.svg";
+import afterhoursLogo from "../../../Assets/logo.svg";
 
 const navItems = [
   { to: "/", label: "Home", icon: <AiOutlineHome /> },
@@ -40,7 +40,7 @@ function MelaNav({ appearance = "dark", onToggleAppearance }) {
     <header className={`mela-nav ${scrolled ? "mela-nav-scrolled" : ""}`}>
       <NavLink to="/" className="mela-brand" aria-label="Build Grounds home">
         <span className="mela-brand-mark">
-          <img src={logo} alt="" className="mela-brand-logo" />
+          <img src={afterhoursLogo} alt="" className="mela-brand-logo" />
         </span>
         <span className="mela-brand-text">
           <span>Build</span>

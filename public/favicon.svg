@@ -1,17 +1,17 @@
 <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <title>Commit Pulse — Chandra Builds</title>
+  <title>Afterhours Prompt — Chandra Builds</title>
   <defs>
-    <linearGradient id="commit-pulse" x1="9" y1="38" x2="55" y2="27" gradientUnits="userSpaceOnUse">
+    <linearGradient id="night-loop" x1="14" y1="14" x2="51" y2="50.5" gradientUnits="userSpaceOnUse">
       <stop stop-color="#F2A93B"/>
-      <stop offset=".52" stop-color="#EF5F7C"/>
+      <stop offset=".48" stop-color="#EF5F7C"/>
       <stop offset="1" stop-color="#49D0BF"/>
     </linearGradient>
   </defs>
   <rect x="2" y="2" width="60" height="60" rx="15" fill="#100B07"/>
   <rect x="3" y="3" width="58" height="58" rx="14" stroke="#F2A93B" stroke-opacity=".5"/>
-  <path d="M9.5 38H21.5L25.5 32.5L30 38H33L37 21.5L41 43.5L45.5 30.5L49.5 38H54.5" stroke="url(#commit-pulse)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M10 38C15 38 15.5 26.5 21.5 26.5H25.5" stroke="#F2A93B" stroke-width="2" stroke-linecap="round"/>
-  <circle cx="10" cy="38" r="3" fill="#100B07" stroke="#F2A93B" stroke-width="2"/>
-  <circle cx="21.5" cy="26.5" r="3" fill="#100B07" stroke="#F2A93B" stroke-width="2"/>
-  <circle cx="54.5" cy="38" r="3" fill="#100B07" stroke="#49D0BF" stroke-width="2"/>
+  <path d="M46 15C38 8.5 26 9 17.5 16C7.5 24.5 7 39.5 15.5 49C24 58.5 39 58 48.5 49C52 45.5 54 41 54.5 36.5" stroke="url(#night-loop)" stroke-width="4.5" stroke-linecap="round"/>
+  <circle cx="46" cy="15" r="2.5" fill="#EF5F7C"/>
+  <circle cx="54.5" cy="36.5" r="2.5" fill="#49D0BF"/>
+  <path d="M22.5 25L30 32L22.5 39" stroke="#FFF5E7" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M34 39H43.5" stroke="#49D0BF" stroke-width="4" stroke-linecap="round"/>
 </svg>

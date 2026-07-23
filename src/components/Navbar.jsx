@@ -15,7 +15,7 @@ import {
 
 import { CgFileDocument } from "react-icons/cg";
 import portfolio from "../Portfolio";
-import logo from "../Assets/logo.svg";
+import afterhoursLogo from "../Assets/logo.svg";
 
 function NavBar() {
   const [expand, updateExpanded] = useState(false);
@@ -41,9 +41,9 @@ function NavBar() {
       <Container>
         <Navbar.Brand as={Link} to="/" className="d-flex align-items-center">
           <img
-            src={logo}
+            src={afterhoursLogo}
             className="cpr-logo"
-            alt="Chandra Builds Commit Pulse logo"
+            alt="Chandra Builds Afterhours Prompt logo"
           />
         </Navbar.Brand>
         <Navbar.Toggle

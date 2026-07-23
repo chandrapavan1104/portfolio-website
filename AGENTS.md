@@ -21,10 +21,11 @@
 
 ## Current State
 The active Build Grounds theme has a responsive light/dark portfolio experience.
-Its Commit Pulse brand mark blends a git graph with an ECG/lightning spike and
-is used consistently in navigation, the hero, favicon, and installable-app metadata.
+Its Afterhours Prompt brand mark wraps a terminal prompt and cursor in an open
+neon night-loop, and is used across navigation, the hero, favicon, and app metadata.
 
 ## Changelog (most recent first)
+- 2026-07-23 00:46 — replaced Commit Pulse with the Afterhours Prompt logo across site branding
 - 2026-07-22 20:15 — replaced Infinite Runtime with the Commit Pulse logo across site branding
 - 2026-07-22 19:47 — replaced the CPR monogram with the Infinite Runtime logo across site branding
 - 2026-07-22 19:42 — context initialized
