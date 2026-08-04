@@ -12,13 +12,17 @@ export const feedbackProjects = [
     tone: "gold",
     tagline: "Your Mac is the server. Your phone is the terminal. The language is English.",
     summary:
-      "An always-on dev server running on my own Mac that I drive entirely from my phone in plain English. Claude Code, Codex and Gemini run as full agentic CLIs on my hardware — not a model router — so the code never leaves the machine.",
+      "An always-on dev server running on my own Mac that I drive entirely from my phone in plain English. Claude Code, Codex and Gemini run as full agentic CLIs on my hardware — not a model router — and a local Qwen 2.5 model is the default brain, so the everyday work never leaves the machine.",
     askingFor:
       "I want to know whether the core bet holds up: is driving your own dev machine from your pocket something you'd actually use, or a neat demo?",
     pillars: [
       {
         title: "Every coding agent, one chat",
         body: "Claude Code, Codex and Gemini run as real agentic CLIs on my hardware — not a model router. Switch engine or model mid-conversation and each keeps its own thread; if one hits a rate limit it falls back to a backup model, so the chat never dies.",
+      },
+      {
+        title: "A local brain by default (Qwen 2.5)",
+        body: "This is the part I care about most. The everyday work — routing your requests, notes, day-to-day chat — runs on a local Qwen 2.5 model on my own Mac via Ollama. Free, offline, no quota, and your data never leaves the machine. The cloud agents step in only when a task needs the heavy muscle; local is the default, not an afterthought.",
       },
       {
         title: "It fixes its own bugs",
@@ -38,7 +42,7 @@ export const feedbackProjects = [
       },
       {
         title: "Private and featherweight",
-        body: "One FastAPI process, local SQLite and a token-gated API — your code and data never leave the Mac. No Node gateway, no Docker, no runtime zoo.",
+        body: "One FastAPI process, local SQLite and a token-gated API over a private Tailscale tunnel. No Node gateway, no Docker, no runtime zoo — small enough to actually audit.",
       },
     ],
     roadmap: [
@@ -63,6 +67,8 @@ export const feedbackProjects = [
       "Claude Code",
       "Codex",
       "Gemini CLI",
+      "Ollama",
+      "Qwen 2.5",
       "Tailscale",
       "Firebase",
       "macOS",
@@ -82,6 +88,7 @@ export const feedbackProjects = [
     },
     highlightOptions: [
       { value: "agents", label: "All three agents in one chat" },
+      { value: "localbrain", label: "Local brain — Qwen 2.5" },
       { value: "selfheal", label: "It fixes its own bugs" },
       { value: "remote", label: "Remote control of the Mac" },
       { value: "codaur", label: "Codaur usage dashboard" },
