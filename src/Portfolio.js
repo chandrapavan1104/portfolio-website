@@ -136,6 +136,30 @@ const portfolio = {
         demo: "",
       },
       {
+        name: "Codaur",
+        techStack: ["Node.js", "JavaScript", "Claude Code", "Codex", "Gemini CLI"],
+        description:
+          "A local CLI that reports coding-agent usage — tokens, requests and limit percentages — across Codex, Claude Code, Gemini CLI and Antigravity in one command. Reads usage files on your own machine; nothing is scraped or sent to a remote service.",
+        github: "https://github.com/chandrapavan1104/Codaur",
+        demo: "",
+      },
+      {
+        name: "Meeting Notes Helper",
+        techStack: ["Python", "faster-whisper", "OpenAI GPT-4o", "BlackHole", "sounddevice"],
+        description:
+          "A macOS CLI that silently captures meeting audio (system + microphone), transcribes it locally with Whisper, and generates an AI summary. Works with Zoom, Teams and Meet — no platform APIs, no bots, no recording notifications.",
+        github: "https://github.com/chandrapavan1104/meeting-notes-helper",
+        demo: "",
+      },
+      {
+        name: "DocxChat",
+        techStack: ["React", "FastAPI", "OpenAI API", "Docker", "Vite"],
+        description:
+          "Upload .docx templates using a {{placeholder}} convention and fill them on an interactive canvas. OpenAI detects and names each placeholder, surfaces guidance, and feeds both an inline editor and an assistant that completes the document.",
+        github: "https://github.com/chandrapavan1104/DocxChat",
+        demo: "",
+      },
+      {
         name: "Kirana.ai",
         techStack: [
           "Next.js",

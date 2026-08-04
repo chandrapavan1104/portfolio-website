@@ -38,6 +38,31 @@ export const skillDistricts = [
   { key: "others", title: "System Design", tone: "teal" },
 ];
 
+// Builds that are live but not ready to be shown. Deliberately unnamed — only
+// a cryptic one-line teaser and a district, rendered as sealed stalls.
+export const sealedProjects = [
+  {
+    id: "sealed-spatial",
+    district: "spatial",
+    teaser: "Turning scattered signals into a picture of where things are.",
+  },
+  {
+    id: "sealed-creators",
+    district: "social",
+    teaser: "A home for people who make a living being seen.",
+  },
+  {
+    id: "sealed-access",
+    district: "accessibility",
+    teaser: "Two people, no shared language, still understanding each other.",
+  },
+  {
+    id: "sealed-quiet",
+    district: "anonymous",
+    teaser: "A quiet place for the words people never send.",
+  },
+];
+
 export const featuredProjectNames = [
   "AppMela AI",
   "Kirana.ai",

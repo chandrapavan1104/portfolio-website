@@ -1,7 +1,8 @@
 import React, { useMemo, useState } from "react";
 import MelaSection from "../components/MelaSection";
 import ProjectPavilion from "../components/ProjectPavilion";
-import { featuredProjectNames, getMelaProjects } from "../melaData";
+import SealedPavilion from "../components/SealedPavilion";
+import { featuredProjectNames, getMelaProjects, sealedProjects } from "../melaData";
 
 const filters = [
   { id: "all", label: "All" },
@@ -73,6 +74,27 @@ function MelaProjects() {
           />
         ))}
       </section>
+
+      {activeFilter === "all" && sealedProjects.length > 0 && (
+        <>
+          <MelaSection
+            eyebrow="Under Wraps"
+            title="Stalls Still Being Built"
+            className="mela-page-heading-section mela-sealed-heading"
+          >
+            <p className="mela-sealed-intro">
+              A few builds are live but not ready to show. Here is a glimpse —
+              the rest opens up soon.
+            </p>
+          </MelaSection>
+
+          <section className="mela-pavilion-grid">
+            {sealedProjects.map((project, index) => (
+              <SealedPavilion project={project} index={index} key={project.id} />
+            ))}
+          </section>
+        </>
+      )}
     </div>
   );
 }
