@@ -63,10 +63,14 @@ export const sealedProjects = [
   },
 ];
 
+// The first three lead the homepage "Current Projects Worth Exploring" section;
+// the rest get featured styling on the Projects page. High-value builds first.
 export const featuredProjectNames = [
+  "Code-as-a-Chat",
   "AppMela AI",
   "Kirana.ai",
+  "Codaur",
+  "DocxChat",
+  "Meeting Notes Helper",
   "Profile Bot",
-  "Flight Finder",
-  "RBAC Management System",
 ];
