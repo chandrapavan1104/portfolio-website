@@ -11,6 +11,7 @@ import { FaLinkedinIn } from "react-icons/fa";
 import portfolio from "../../../Portfolio";
 import afterhoursLogo from "../../../Assets/logo.svg";
 import MelaSection from "../components/MelaSection";
+import MelaChaiStall from "../components/MelaChaiStall";
 import ProjectPavilion from "../components/ProjectPavilion";
 import { featuredProjectNames, getMelaProjects } from "../melaData";
 
@@ -127,6 +128,8 @@ function MelaHome() {
           </Link>
         </div>
       </MelaSection>
+
+      <MelaChaiStall />
     </>
   );
 }

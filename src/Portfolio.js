@@ -11,6 +11,7 @@ const portfolio = {
     phone: "+1 (669) 369-9147",
     location: "San Jose, California, USA",
     resumeLink: "https://github.com/chandrapavan1104", // optional direct resume or GitHub link
+    supportLink: "https://paypal.me/chandrapavan1104", // "buy me a cup" tip jar
     socialLinks: {
       linkedin: "https://linkedin.com/in/chandra-pavan",
       github: "https://github.com/chandrapavan1104",

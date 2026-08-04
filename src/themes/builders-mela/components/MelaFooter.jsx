@@ -1,6 +1,6 @@
 import React from "react";
 import { AiOutlineMail } from "react-icons/ai";
-import { BsGithub } from "react-icons/bs";
+import { BsCupHot, BsGithub } from "react-icons/bs";
 import { FaLinkedinIn } from "react-icons/fa";
 import portfolio from "../../../Portfolio";
 
@@ -39,6 +39,18 @@ function MelaFooter() {
           </a>
         )}
       </div>
+      {portfolio.supportLink && (
+        <p className="mela-footer-tip">
+          <BsCupHot aria-hidden="true" />
+          <span>
+            Built after hours, no ads, no paywalls. If it helped, you can{" "}
+            <a href={portfolio.supportLink} target="_blank" rel="noreferrer">
+              buy me a cup
+            </a>
+            .
+          </span>
+        </p>
+      )}
     </footer>
   );
 }
