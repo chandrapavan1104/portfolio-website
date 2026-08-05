@@ -3,7 +3,7 @@ import { AiOutlineDownload } from "react-icons/ai";
 import { Document, Page, pdfjs } from "react-pdf";
 import "react-pdf/dist/esm/Page/AnnotationLayer.css";
 import portfolio from "../../../Portfolio";
-import localResume from "../../../Assets/CPRCV (3).pdf";
+import localResume from "../../../Assets/Chandra-Pavan-Reddy-Chada-Resume.pdf";
 import MelaSection from "../components/MelaSection";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
