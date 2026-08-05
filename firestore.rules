@@ -1,11 +1,14 @@
 rules_version = '2';
 
-// Anonymous feedback collection.
+// Anonymous feedback + visit tracking.
 //
 // The web config in the client bundle is public by design, so THIS FILE is the
-// only thing standing between the internet and the database. Both collections
-// are create-only and permanently unreadable from any client: read submissions
-// in the Firebase console or with the Admin SDK, which bypass these rules.
+// only thing standing between the internet and the database.
+//
+// 'feedback' is create-only and permanently unreadable from any client: read
+// submissions in the Firebase console or with the Admin SDK, which bypass
+// these rules. 'visits' is append-only for everyone and readable only by the
+// signed-in admin account, which is what powers the /admin page.
 //
 // Deploy with:  firebase deploy --only firestore:rules
 
@@ -41,14 +44,30 @@ service cloud.firestore {
         && request.resource.data.createdAt == request.time;
     }
 
-    match /pageviews/{docId} {
-      allow read, update, delete: if false;
+    // Visit tracking. Replaces the old create-only 'pageviews' collection,
+    // which only knew a project slug and could never be read back.
+    //
+    // Anyone may append a visit; only the admin account may read them. Email /
+    // password sign-in is the gate, and public self-signup is disabled in the
+    // Firebase console, so nobody can mint an account to match this address.
+    // (email_verified is deliberately NOT required: accounts created from the
+    // console start unverified, which would lock the admin out.)
+    match /visits/{docId} {
+      allow read: if request.auth != null
+        && request.auth.token.email == 'chandrapavanreddy@gmail.com';
+
+      allow update, delete: if false;
 
       allow create: if
-        request.resource.data.keys().hasOnly(['projectSlug', 'ref', 'createdAt'])
-        && isText(request.resource.data.projectSlug, 64)
-        && request.resource.data.projectSlug.size() > 0
+        request.resource.data.keys().hasOnly([
+          'path', 'ref', 'referrer', 'ua', 'createdAt'
+        ])
+        && isText(request.resource.data.path, 200)
+        && request.resource.data.path.size() > 0
         && isText(request.resource.data.ref, 60)
+        && isText(request.resource.data.referrer, 300)
+        && isText(request.resource.data.ua, 300)
+        // Forces a REQUEST_TIME transform: a client cannot backdate this.
         && request.resource.data.createdAt == request.time;
     }
 

@@ -10,10 +10,14 @@ import MelaResume from "./pages/MelaResume";
 import MelaGuide from "./pages/MelaGuide";
 import MelaBuilding from "./pages/MelaBuilding";
 import MelaFeedback from "./pages/MelaFeedback";
+import MelaAdmin from "./pages/MelaAdmin";
+import useVisitTracker from "../../lib/useVisitTracker";
 
 function BuilderMelaApp() {
   const location = useLocation();
   const isGuide = location.pathname === "/chatbot";
+
+  useVisitTracker();
   const [appearance, setAppearance] = useState(() => {
     if (typeof window === "undefined") {
       return "dark";
@@ -56,6 +60,7 @@ function BuilderMelaApp() {
           <Route path="/building" element={<MelaBuilding />} />
           <Route path="/feedback/:slug" element={<MelaFeedback />} />
           <Route path="/feedback" element={<Navigate to="/building" replace />} />
+          <Route path="/admin" element={<MelaAdmin />} />
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </main>

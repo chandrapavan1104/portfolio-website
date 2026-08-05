@@ -11,7 +11,7 @@ import { BsGithub, BsShieldLock } from "react-icons/bs";
 import { FaLinkedinIn } from "react-icons/fa";
 import portfolio from "../../../Portfolio";
 import { getFeedbackProject } from "../feedbackProjects";
-import { logPageview, readRef, submitFeedback } from "../../../lib/feedbackStore";
+import { readRef, submitFeedback } from "../../../lib/feedbackStore";
 import { isFirebaseConfigured } from "../../../lib/firebaseConfig";
 
 const COOLDOWN_MS = 10 * 60 * 1000;
@@ -70,7 +70,6 @@ function MelaFeedback() {
   const [error, setError] = useState("");
   const formRef = useRef(null);
   const panelRef = useRef(null);
-  const trackedRef = useRef(false);
 
   const ref = useMemo(() => readRef(), []);
 
@@ -80,15 +79,6 @@ function MelaFeedback() {
       .filter((item) => item.name !== project?.name)
       .slice(0, 3);
   }, [project]);
-
-  useEffect(() => {
-    if (!project || trackedRef.current) {
-      return;
-    }
-
-    trackedRef.current = true;
-    logPageview(project.slug, ref);
-  }, [project, ref]);
 
   useEffect(() => {
     if (project && hasRecentlySubmitted(project.slug)) {

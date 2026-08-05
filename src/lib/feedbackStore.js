@@ -1,4 +1,7 @@
-// Anonymous feedback + pageview writes.
+// Anonymous feedback writes.
+//
+// Visit tracking lives in ./analytics.js, which talks to the Firestore REST
+// API directly so it costs the bundle nothing.
 //
 // The Firebase SDK is imported dynamically so it never lands in the main
 // bundle: only visitors who actually open a feedback page pay for it.
@@ -101,23 +104,4 @@ export async function submitFeedback({ projectSlug, answers, ref }) {
     firestore.addDoc(firestore.collection(db, "feedback"), payload),
     WRITE_TIMEOUT_MS
   );
-}
-
-// Fire-and-forget. A failed pageview must never surface to the visitor or
-// block the form, so this swallows its own errors.
-export async function logPageview(projectSlug, ref) {
-  try {
-    const { db, firestore } = await getFirestore();
-
-    await withTimeout(
-      firestore.addDoc(firestore.collection(db, "pageviews"), {
-        projectSlug: clean(projectSlug, 64),
-        ref: clean(ref, MAX_REF),
-        createdAt: firestore.serverTimestamp(),
-      }),
-      WRITE_TIMEOUT_MS
-    );
-  } catch {
-    // Analytics are best-effort by design.
-  }
 }
