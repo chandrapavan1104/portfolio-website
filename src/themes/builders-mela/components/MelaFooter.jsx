@@ -8,8 +8,8 @@ function MelaFooter() {
   return (
     <footer className="mela-footer">
       <div>
-        <p className="mela-kicker">Open For Useful Work</p>
-        <h2>Have a system, agent, or app idea that needs a builder?</h2>
+        <p className="mela-kicker">Always Up For A Good Idea</p>
+        <h2>Got a system, agent, or app idea worth building together?</h2>
       </div>
       <div className="mela-footer-actions">
         <a href={`mailto:${portfolio.email}`} className="mela-action mela-action-primary">

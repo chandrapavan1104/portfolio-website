@@ -101,7 +101,8 @@ function HomePage() {
               <span role="img" aria-label="rocket">
                 🚀
               </span>{" "}
-              I&apos;m actively looking for new opportunities—drop a note at{" "}
+              Always up for connecting and building new ideas together—drop a
+              note at{" "}
               <a href={`mailto:${portfolio.email}`} className="home-contact-email">
                 {portfolio.email}
               </a>{" "}

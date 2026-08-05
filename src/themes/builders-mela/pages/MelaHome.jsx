@@ -81,7 +81,7 @@ function MelaHome() {
           </div>
           <div>
             <span>Signal</span>
-            <strong>Open to strong engineering roles</strong>
+            <strong>Open to connecting and building ideas together</strong>
           </div>
           <div className="mela-ledger-links">
             {portfolio.socialLinks?.github && (
