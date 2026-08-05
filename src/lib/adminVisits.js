@@ -25,18 +25,63 @@ function documentsUrl() {
 // ---------------------------------------------------------------------------
 // Auth
 // ---------------------------------------------------------------------------
+//
+// Sign in once and stay signed in. The session persists in localStorage and
+// the SDK refreshes the ID token on its own, so the login screen is a
+// first-run step rather than something to repeat. Callers never hold a token:
+// they ask for a fresh one per query via getIdToken(), which serves a cached
+// value until it is close to expiry.
 
-// Returns a Firebase ID token for the signed-in Google account. The token is
-// short-lived (about an hour); the caller falls back to the sign-in screen
-// when Firestore rejects it.
+let authPromise = null;
+
+async function getAuthInstance() {
+  if (!authPromise) {
+    authPromise = (async () => {
+      const [{ getApp, getApps, initializeApp }, auth] = await Promise.all([
+        import("firebase/app"),
+        import("firebase/auth"),
+      ]);
+
+      const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
+      const instance = auth.getAuth(app);
+
+      // Survives a tab close, unlike the default in-memory/session behaviour.
+      await auth.setPersistence(instance, auth.browserLocalPersistence);
+
+      return { instance, auth };
+    })().catch((error) => {
+      authPromise = null;
+      throw error;
+    });
+  }
+
+  return authPromise;
+}
+
+// Resolves with the restored user once, after persistence has loaded. Returns
+// null when nobody is signed in — onAuthStateChanged fires either way, which
+// is why this is not just a currentUser read.
+async function waitForUser() {
+  const { instance, auth } = await getAuthInstance();
+
+  return new Promise((resolve) => {
+    const unsubscribe = auth.onAuthStateChanged(instance, (user) => {
+      unsubscribe();
+      resolve(user || null);
+    });
+  });
+}
+
+// True when a previous session is still good, so the dashboard can skip the
+// sign-in screen and go straight to loading.
+export async function restoreAdminSession() {
+  const user = await waitForUser();
+
+  return user ? { email: user.email || "" } : null;
+}
+
 export async function adminSignIn() {
-  const [{ getApp, getApps, initializeApp }, auth] = await Promise.all([
-    import("firebase/app"),
-    import("firebase/auth"),
-  ]);
-
-  const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
-  const instance = auth.getAuth(app);
+  const { instance, auth } = await getAuthInstance();
   const provider = new auth.GoogleAuthProvider();
 
   // Always show the chooser: signing in with the wrong Google account
@@ -45,27 +90,32 @@ export async function adminSignIn() {
 
   const result = await auth.signInWithPopup(instance, provider);
 
-  return result.user.getIdToken();
+  return { email: result.user.email || "" };
 }
 
 export async function adminSignOut() {
-  const [{ getApp, getApps }, auth] = await Promise.all([
-    import("firebase/app"),
-    import("firebase/auth"),
-  ]);
+  const { instance, auth } = await getAuthInstance();
 
-  if (!getApps().length) {
-    return;
+  await auth.signOut(instance);
+}
+
+async function getIdToken() {
+  const user = await waitForUser();
+
+  if (!user) {
+    throw new Error("NOT_SIGNED_IN");
   }
 
-  await auth.signOut(auth.getAuth(getApp()));
+  return user.getIdToken();
 }
 
 // ---------------------------------------------------------------------------
 // Queries
 // ---------------------------------------------------------------------------
 
-async function firestoreQuery(idToken, endpoint, body) {
+async function firestoreQuery(endpoint, body) {
+  const idToken = await getIdToken();
+
   const response = await fetch(`${documentsUrl()}${endpoint}`, {
     method: "POST",
     headers: {
@@ -90,15 +140,15 @@ function readString(fields, key) {
   return fields?.[key]?.stringValue || "";
 }
 
-export async function fetchVisitSummary(idToken) {
+export async function fetchVisitSummary() {
   const [countResult, rows] = await Promise.all([
-    firestoreQuery(idToken, ":runAggregationQuery", {
+    firestoreQuery(":runAggregationQuery", {
       structuredAggregationQuery: {
         structuredQuery: { from: [{ collectionId: COLLECTION }] },
         aggregations: [{ count: {}, alias: "total" }],
       },
     }),
-    firestoreQuery(idToken, ":runQuery", {
+    firestoreQuery(":runQuery", {
       structuredQuery: {
         from: [{ collectionId: COLLECTION }],
         orderBy: [

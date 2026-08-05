@@ -10,13 +10,14 @@ import {
   adminSignIn,
   adminSignOut,
   fetchVisitSummary,
+  restoreAdminSession,
 } from "../../../lib/adminVisits";
 import { isFirebaseConfigured } from "../../../lib/firebaseConfig";
+// Co-located so the .mela-admin-* rules ship only in dev builds.
+import "../admin.css";
 
 // The route this page exists to watch: the link shared on LinkedIn.
 const FEATURED_PATH = "/feedback/code-as-a-chat";
-
-const TOKEN_KEY = "melaAdminToken";
 
 function formatWhen(value) {
   if (!value) {
@@ -84,55 +85,65 @@ function sourceLabel(visit) {
 }
 
 function MelaAdmin() {
-  const [token, setToken] = useState(() => {
-    try {
-      return sessionStorage.getItem(TOKEN_KEY) || "";
-    } catch {
-      return "";
-    }
-  });
-
+  const [account, setAccount] = useState(null);
   const [summary, setSummary] = useState(null);
-  const [status, setStatus] = useState("idle");
+  // "restoring" until the persisted session has been checked, so the sign-in
+  // screen never flashes for an already-signed-in user.
+  const [status, setStatus] = useState("restoring");
   const [error, setError] = useState("");
 
-  const load = useCallback(async (idToken) => {
+  const load = useCallback(async () => {
     setStatus("loading");
     setError("");
 
     try {
-      setSummary(await fetchVisitSummary(idToken));
+      setSummary(await fetchVisitSummary());
       setStatus("ready");
     } catch (loadError) {
-      // An expired ID token (they last an hour) should drop back to the form
-      // rather than sit on a dead error.
-      const expired =
-        loadError?.message?.includes("UNAUTHENTICATED") ||
-        loadError?.message?.includes("invalid authentication");
+      const reason = loadError?.message || "";
 
-      if (expired) {
-        setToken("");
-        try {
-          sessionStorage.removeItem(TOKEN_KEY);
-        } catch {
-          // Nothing to clean up if storage is blocked.
-        }
-        setError("Session expired — sign in again.");
-      } else if (loadError?.message?.includes("PERMISSION_DENIED")) {
+      if (reason.includes("NOT_SIGNED_IN") || reason.includes("UNAUTHENTICATED")) {
+        setAccount(null);
+        setError("Session ended — sign in again.");
+      } else if (reason.includes("PERMISSION_DENIED")) {
         setError("That account is not the admin account.");
       } else {
-        setError(loadError?.message || "Could not load visits.");
+        setError(reason || "Could not load visits.");
       }
 
       setStatus("idle");
     }
   }, []);
 
+  // Restore a previous session on mount. The SDK keeps the session in
+  // localStorage and refreshes the token itself, so signing in is a one-time
+  // step rather than something to repeat each visit.
   useEffect(() => {
-    if (token) {
-      load(token);
-    }
-  }, [token, load]);
+    let cancelled = false;
+
+    restoreAdminSession()
+      .then((restored) => {
+        if (cancelled) {
+          return;
+        }
+
+        if (restored) {
+          setAccount(restored);
+          load();
+        } else {
+          setStatus("idle");
+        }
+      })
+      .catch(() => {
+        if (!cancelled) {
+          setStatus("idle");
+        }
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [load]);
 
   const handleSignIn = async (event) => {
     event.preventDefault();
@@ -145,15 +156,8 @@ function MelaAdmin() {
     setError("");
 
     try {
-      const idToken = await adminSignIn();
-
-      try {
-        sessionStorage.setItem(TOKEN_KEY, idToken);
-      } catch {
-        // A blocked sessionStorage only costs the refresh convenience.
-      }
-
-      setToken(idToken);
+      setAccount(await adminSignIn());
+      load();
     } catch (signInError) {
       const reason = signInError?.code || signInError?.message || "";
       let message = "Sign-in failed.";
@@ -175,19 +179,13 @@ function MelaAdmin() {
   };
 
   const handleSignOut = () => {
-    try {
-      sessionStorage.removeItem(TOKEN_KEY);
-    } catch {
-      // Already gone.
-    }
-
-    // Drop the Firebase session too, otherwise the next sign-in silently
-    // reuses this account instead of offering the chooser.
+    // Clears the persisted session, so the next visit asks for the account
+    // chooser again rather than restoring silently.
     adminSignOut().catch(() => {
-      // Clearing the local token is what actually signs this page out.
+      // Dropping local state below is what signs this page out either way.
     });
 
-    setToken("");
+    setAccount(null);
     setSummary(null);
     setStatus("idle");
   };
@@ -214,7 +212,24 @@ function MelaAdmin() {
     );
   }
 
-  if (!token) {
+  if (status === "restoring") {
+    return (
+      <div className="mela-page mela-admin-page">
+        <section className="mela-section mela-page-heading-section">
+          <p className="mela-kicker">
+            <BsShieldLock /> Admin
+          </p>
+          <h1>Visits</h1>
+          <p>
+            <AiOutlineLoading3Quarters className="mela-spin" /> Restoring
+            session…
+          </p>
+        </section>
+      </div>
+    );
+  }
+
+  if (!account) {
     return (
       <div className="mela-page mela-admin-page">
         <section className="mela-section mela-page-heading-section">
@@ -263,7 +278,7 @@ function MelaAdmin() {
           <button
             type="button"
             className="mela-action"
-            onClick={() => load(token)}
+            onClick={() => load()}
             disabled={status === "loading"}
           >
             {status === "loading" ? (
@@ -274,7 +289,7 @@ function MelaAdmin() {
             <span>{status === "loading" ? "Loading" : "Refresh"}</span>
           </button>
           <button type="button" className="mela-action" onClick={handleSignOut}>
-            <span>Sign out</span>
+            <span>{account?.email ? `Sign out ${account.email}` : "Sign out"}</span>
           </button>
         </div>
       </section>
