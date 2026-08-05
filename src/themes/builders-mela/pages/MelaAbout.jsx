@@ -5,6 +5,14 @@ import { skillDistricts } from "../melaData";
 import portfolio from "../../../Portfolio";
 
 function MelaAbout() {
+  // Number only the districts that actually render, so the sequence never
+  // skips a value when a skill list is empty.
+  let counter = 0;
+  const numberedDistricts = skillDistricts.map((district) => {
+    const hasItems = (portfolio.skills?.[district.key] || []).length > 0;
+    return { ...district, number: hasItems ? (counter += 1) : null };
+  });
+
   return (
     <div className="mela-page">
       <MelaSection
@@ -15,23 +23,47 @@ function MelaAbout() {
         <div className="mela-about-intro">
           <p>{portfolio.about}</p>
           <div className="mela-about-facts">
-            <span>Full-stack engineering</span>
-            <span>GenAI product workflows</span>
-            <span>Cloud-native deployment</span>
+            <span>Agent architecture</span>
+            <span>Local &amp; multi-model inference</span>
+            <span>Full-stack delivery</span>
           </div>
         </div>
       </MelaSection>
 
-      <section className="mela-skill-grid">
-        {skillDistricts.map((district) => (
-          <SkillDistrict
-            title={district.title}
-            items={portfolio.skills?.[district.key] || []}
-            tone={district.tone}
-            key={district.key}
-          />
-        ))}
-      </section>
+      <MelaSection
+        eyebrow="AI Systems"
+        title="How I Build With Models, Not Just Around Them"
+      >
+        <div className="mela-skill-grid">
+          {numberedDistricts
+            .filter((district) => district.group === "ai")
+            .map((district) => (
+              <SkillDistrict
+                title={district.title}
+                items={portfolio.skills?.[district.key] || []}
+                tone={district.tone}
+                number={district.number}
+                key={district.key}
+              />
+            ))}
+        </div>
+      </MelaSection>
+
+      <MelaSection eyebrow="Foundations" title="The Stack Underneath All Of It">
+        <div className="mela-skill-grid">
+          {numberedDistricts
+            .filter((district) => district.group === "foundation")
+            .map((district) => (
+              <SkillDistrict
+                title={district.title}
+                items={portfolio.skills?.[district.key] || []}
+                tone={district.tone}
+                number={district.number}
+                key={district.key}
+              />
+            ))}
+        </div>
+      </MelaSection>
 
       <MelaSection eyebrow="Experience Timeline" title="Where The Work Has Shipped">
         <div className="mela-timeline">

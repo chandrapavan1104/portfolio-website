@@ -27,15 +27,83 @@ export function getMelaProjects() {
   return hasAppMela ? projects : [appMelaProject, ...projects];
 }
 
+// AI-systems districts lead; language/framework districts sit underneath as
+// foundations. `group` drives the section split on the skill map.
 export const skillDistricts = [
-  { key: "languages", title: "Programming Languages", tone: "gold" },
-  { key: "frontend", title: "Frontend Engineering", tone: "teal" },
-  { key: "backend", title: "Backend APIs", tone: "rose" },
-  { key: "databases", title: "Databases", tone: "gold" },
-  { key: "cloudDevops", title: "Cloud & DevOps", tone: "teal" },
-  { key: "aiMl", title: "AI & ML Systems", tone: "rose" },
-  { key: "tools", title: "Developer Tools", tone: "gold" },
-  { key: "others", title: "System Design", tone: "teal" },
+  {
+    key: "agentArchitecture",
+    title: "Agent & LLM Architecture",
+    tone: "gold",
+    group: "ai",
+  },
+  {
+    key: "modelRouting",
+    title: "Model Routing & Inference",
+    tone: "teal",
+    group: "ai",
+  },
+  { key: "contextMemory", title: "Context & Memory", tone: "rose", group: "ai" },
+  {
+    key: "reliability",
+    title: "Reliability & Guardrails",
+    tone: "gold",
+    group: "ai",
+  },
+  { key: "ragRetrieval", title: "RAG & Retrieval", tone: "teal", group: "ai" },
+  {
+    key: "llmOps",
+    title: "LLM Ops & Observability",
+    tone: "rose",
+    group: "ai",
+  },
+  {
+    key: "generativeMedia",
+    title: "Generative Media & Vision",
+    tone: "gold",
+    group: "ai",
+  },
+  {
+    key: "securityPrivacy",
+    title: "Security & Privacy",
+    tone: "teal",
+    group: "ai",
+  },
+  {
+    key: "languages",
+    title: "Languages & Runtimes",
+    tone: "rose",
+    group: "foundation",
+  },
+  {
+    key: "frameworks",
+    title: "Web & App Frameworks",
+    tone: "gold",
+    group: "foundation",
+  },
+  {
+    key: "dataStorage",
+    title: "Data & Storage",
+    tone: "teal",
+    group: "foundation",
+  },
+  {
+    key: "cloudDevops",
+    title: "Cloud & DevOps",
+    tone: "rose",
+    group: "foundation",
+  },
+  {
+    key: "apisSystems",
+    title: "APIs & System Design",
+    tone: "gold",
+    group: "foundation",
+  },
+  {
+    key: "tools",
+    title: "Developer Tools",
+    tone: "teal",
+    group: "foundation",
+  },
 ];
 
 // Builds that are live but not ready to be shown. Deliberately unnamed — only

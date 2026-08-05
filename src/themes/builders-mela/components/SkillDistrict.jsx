@@ -1,6 +1,9 @@
 import React from "react";
 
-function SkillDistrict({ title, items, tone = "gold" }) {
+// `number` is the district's position on the skill map, matching the ordinal
+// pins used by the experience timeline and project stalls. It is deliberately
+// not items.length — a zero-padded count reads as an index and misleads.
+function SkillDistrict({ title, items, tone = "gold", number }) {
   if (!items?.length) {
     return null;
   }
@@ -8,7 +11,7 @@ function SkillDistrict({ title, items, tone = "gold" }) {
   return (
     <article className={`mela-skill-district mela-skill-${tone}`}>
       <div className="mela-district-sign">
-        <span>{String(items.length).padStart(2, "0")}</span>
+        {number != null && <span>{String(number).padStart(2, "0")}</span>}
         <h3>{title}</h3>
       </div>
       <div className="mela-token-grid">
