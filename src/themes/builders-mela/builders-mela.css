@@ -2462,6 +2462,13 @@ body[data-mela-appearance="light"] .App {
   padding: 1.6rem;
 }
 
+.mela-admin-login-note {
+  color: var(--mela-muted);
+  font-size: 0.88rem;
+  line-height: 1.6;
+  margin: 0 0 1.2rem;
+}
+
 .mela-admin-toolbar {
   display: flex;
   flex-wrap: wrap;

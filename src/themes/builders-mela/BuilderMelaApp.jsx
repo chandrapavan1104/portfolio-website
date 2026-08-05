@@ -10,8 +10,16 @@ import MelaResume from "./pages/MelaResume";
 import MelaGuide from "./pages/MelaGuide";
 import MelaBuilding from "./pages/MelaBuilding";
 import MelaFeedback from "./pages/MelaFeedback";
-import MelaAdmin from "./pages/MelaAdmin";
 import useVisitTracker from "../../lib/useVisitTracker";
+
+// The visits dashboard is a local tool, not a page on the site. `import.meta.
+// env.DEV` is a build-time constant, so this whole branch — and the dashboard
+// chunk behind it — is dropped from the production bundle. In a deployed build
+// /admin is not a route at all and falls through to the catch-all redirect.
+// Reach it with `npm run dev` at http://localhost:5173/admin.
+const MelaAdmin = import.meta.env.DEV
+  ? React.lazy(() => import("./pages/MelaAdmin"))
+  : null;
 
 function BuilderMelaApp() {
   const location = useLocation();
@@ -60,7 +68,16 @@ function BuilderMelaApp() {
           <Route path="/building" element={<MelaBuilding />} />
           <Route path="/feedback/:slug" element={<MelaFeedback />} />
           <Route path="/feedback" element={<Navigate to="/building" replace />} />
-          <Route path="/admin" element={<MelaAdmin />} />
+          {MelaAdmin && (
+            <Route
+              path="/admin"
+              element={
+                <React.Suspense fallback={null}>
+                  <MelaAdmin />
+                </React.Suspense>
+              }
+            />
+          )}
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </main>

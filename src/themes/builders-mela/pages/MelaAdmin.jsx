@@ -4,11 +4,13 @@ import {
   AiOutlineReload,
 } from "react-icons/ai";
 import { BsShieldLock } from "react-icons/bs";
+import { FcGoogle } from "react-icons/fc";
 import {
   RECENT_SAMPLE_LIMIT,
   adminSignIn,
+  adminSignOut,
   fetchVisitSummary,
-} from "../../../lib/analytics";
+} from "../../../lib/adminVisits";
 import { isFirebaseConfigured } from "../../../lib/firebaseConfig";
 
 // The route this page exists to watch: the link shared on LinkedIn.
@@ -90,8 +92,6 @@ function MelaAdmin() {
     }
   });
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [summary, setSummary] = useState(null);
   const [status, setStatus] = useState("idle");
   const [error, setError] = useState("");
@@ -145,7 +145,7 @@ function MelaAdmin() {
     setError("");
 
     try {
-      const idToken = await adminSignIn(email.trim(), password);
+      const idToken = await adminSignIn();
 
       try {
         sessionStorage.setItem(TOKEN_KEY, idToken);
@@ -153,16 +153,20 @@ function MelaAdmin() {
         // A blocked sessionStorage only costs the refresh convenience.
       }
 
-      setPassword("");
       setToken(idToken);
     } catch (signInError) {
-      const reason = signInError?.message || "";
+      const reason = signInError?.code || signInError?.message || "";
       let message = "Sign-in failed.";
 
-      if (reason.includes("INVALID_LOGIN_CREDENTIALS") || reason.includes("INVALID_PASSWORD")) {
-        message = "Wrong email or password.";
-      } else if (reason.includes("TOO_MANY_ATTEMPTS")) {
-        message = "Too many attempts — wait a minute and retry.";
+      if (reason.includes("popup-closed-by-user") || reason.includes("cancelled-popup")) {
+        message = "Sign-in cancelled.";
+      } else if (reason.includes("popup-blocked")) {
+        message = "The browser blocked the popup — allow popups and retry.";
+      } else if (reason.includes("operation-not-allowed")) {
+        message =
+          "Google sign-in is not enabled for this Firebase project yet.";
+      } else if (reason.includes("unauthorized-domain")) {
+        message = "This domain is not in the Firebase authorised domains list.";
       }
 
       setError(message);
@@ -176,6 +180,12 @@ function MelaAdmin() {
     } catch {
       // Already gone.
     }
+
+    // Drop the Firebase session too, otherwise the next sign-in silently
+    // reuses this account instead of offering the chooser.
+    adminSignOut().catch(() => {
+      // Clearing the local token is what actually signs this page out.
+    });
 
     setToken("");
     setSummary(null);
@@ -215,27 +225,11 @@ function MelaAdmin() {
         </section>
 
         <form className="mela-admin-login" onSubmit={handleSignIn}>
-          <label className="mela-field">
-            <span>Email</span>
-            <input
-              type="email"
-              value={email}
-              onChange={(event) => setEmail(event.target.value)}
-              autoComplete="username"
-              required
-            />
-          </label>
-
-          <label className="mela-field">
-            <span>Password</span>
-            <input
-              type="password"
-              value={password}
-              onChange={(event) => setPassword(event.target.value)}
-              autoComplete="current-password"
-              required
-            />
-          </label>
+          <p className="mela-admin-login-note">
+            Local tool — this route does not exist in the deployed site. Sign in
+            with the Google account that owns the Firebase project; anything
+            else is refused by the Firestore rules.
+          </p>
 
           {error && <p className="mela-feedback-error">{error}</p>}
 
@@ -247,9 +241,11 @@ function MelaAdmin() {
             {status === "signing" ? (
               <AiOutlineLoading3Quarters className="mela-spin" />
             ) : (
-              <BsShieldLock />
+              <FcGoogle />
             )}
-            <span>{status === "signing" ? "Checking" : "Sign in"}</span>
+            <span>
+              {status === "signing" ? "Checking" : "Sign in with Google"}
+            </span>
           </button>
         </form>
       </div>

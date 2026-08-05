@@ -8,7 +8,10 @@
 // Writes are governed by firestore.rules exactly like the SDK path is: the
 // collection is create-only, the field shape is validated server-side, and
 // `createdAt` is set by a REQUEST_TIME transform so a client cannot forge or
-// backdate it. Reads require a signed-in admin.
+// backdate it.
+//
+// This file is the PUBLIC write path only. Reading visits back lives in
+// ./adminVisits.js, which ships in dev builds alone.
 
 import {
   firebaseConfig,
@@ -17,7 +20,6 @@ import {
 } from "./firebaseConfig";
 
 const COLLECTION = "visits";
-const RECENT_LIMIT = 500;
 
 const MAX_PATH = 200;
 const MAX_REF = 60;
@@ -126,103 +128,3 @@ export async function logVisit(path) {
     // Analytics are best-effort by design.
   }
 }
-
-// ---------------------------------------------------------------------------
-// Read path (admin only)
-// ---------------------------------------------------------------------------
-
-export async function adminSignIn(email, password) {
-  const response = await fetch(
-    `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${firebaseConfig.apiKey}`,
-    {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password, returnSecureToken: true }),
-    }
-  );
-
-  const data = await response.json();
-
-  if (!response.ok) {
-    throw new Error(data?.error?.message || "SIGN_IN_FAILED");
-  }
-
-  return data.idToken;
-}
-
-async function firestoreQuery(idToken, endpoint, body) {
-  const response = await fetch(`${documentsUrl()}${endpoint}`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${idToken}`,
-    },
-    body: JSON.stringify(body),
-  });
-
-  const data = await response.json();
-
-  if (!response.ok) {
-    throw new Error(data?.error?.message || data?.[0]?.error?.message || "QUERY_FAILED");
-  }
-
-  return data;
-}
-
-function readString(fields, key) {
-  return fields?.[key]?.stringValue || "";
-}
-
-export async function fetchVisitSummary(idToken) {
-  const [countResult, rows] = await Promise.all([
-    firestoreQuery(idToken, ":runAggregationQuery", {
-      structuredAggregationQuery: {
-        structuredQuery: { from: [{ collectionId: COLLECTION }] },
-        aggregations: [{ count: {}, alias: "total" }],
-      },
-    }),
-    firestoreQuery(idToken, ":runQuery", {
-      structuredQuery: {
-        from: [{ collectionId: COLLECTION }],
-        orderBy: [
-          { field: { fieldPath: "createdAt" }, direction: "DESCENDING" },
-        ],
-        limit: RECENT_LIMIT,
-      },
-    }),
-  ]);
-
-  const total = Number(
-    countResult?.[0]?.result?.aggregateFields?.total?.integerValue || 0
-  );
-
-  const visits = (Array.isArray(rows) ? rows : [])
-    // A result set can lead with a metadata-only entry that has no document.
-    .filter((row) => row.document)
-    .map((row) => {
-      const fields = row.document.fields || {};
-
-      return {
-        id: row.document.name.split("/").pop(),
-        path: readString(fields, "path"),
-        ref: readString(fields, "ref"),
-        referrer: readString(fields, "referrer"),
-        ua: readString(fields, "ua"),
-        createdAt: fields.createdAt?.timestampValue || "",
-      };
-    });
-
-  const counts = new Map();
-
-  visits.forEach((visit) => {
-    counts.set(visit.path, (counts.get(visit.path) || 0) + 1);
-  });
-
-  const byPath = [...counts.entries()]
-    .map(([path, count]) => ({ path, count }))
-    .sort((a, b) => b.count - a.count);
-
-  return { total, sampled: visits.length, byPath, visits };
-}
-
-export const RECENT_SAMPLE_LIMIT = RECENT_LIMIT;

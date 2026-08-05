@@ -47,9 +47,11 @@ service cloud.firestore {
     // Visit tracking. Replaces the old create-only 'pageviews' collection,
     // which only knew a project slug and could never be read back.
     //
-    // Anyone may append a visit; only the admin account may read them. Email /
-    // password sign-in is the gate, and public self-signup is disabled in the
-    // Firebase console, so nobody can mint an account to match this address.
+    // Anyone may append a visit; only the admin account may read them. The
+    // email on the ID token is the gate, whatever provider issued it — the
+    // dashboard signs in with Google, and no other Google account matches this
+    // address. The dashboard itself is a dev-only route and never ships in the
+    // deployed bundle, but this rule, not that, is what protects the data.
     // (email_verified is deliberately NOT required: accounts created from the
     // console start unverified, which would lock the admin out.)
     match /visits/{docId} {
